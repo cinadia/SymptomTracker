@@ -6,8 +6,7 @@ import java.util.List;
 /**
  * A collection of Remedies added by the user
  */
-// TODO: make this an abstract class :c
-public class RemedyLog {
+public class RemedyLog implements Log {
 
     // EFFECTS: Creates an empty collection of Remedies (a log)
     public RemedyLog() {
@@ -19,17 +18,6 @@ public class RemedyLog {
     // EFFECTS: adds a Remedy to this log with location, remedy, and date
     public void addRemedy(String location, String remedy, String date) {
 
-    }
-
-    // EFFECTS: show all Remedies logged and their index
-    public List<Remedy> viewAllRemedies() {
-        return null;
-    }
-
-    // REQUIRES: start and end are valid dates such that start is before end, and end is before or equal to today
-    // EFFECTS: show info on the Remedies logged within the given date bounds, empty panel if none
-    public List<Remedy> viewSelectRemedies(String start, String end) {
-        return null;
     }
 
     // REQUIRES: index >= 0,
@@ -44,15 +32,32 @@ public class RemedyLog {
         // pass arguments to editRemedy in Remedy class
     }
 
+    // EFFECTS: show all Remedies logged and their index
+    @Override
+    public String viewAllLogs() {
+        return null;
+    }
+
+    // REQUIRES: start and end are valid dates such that:
+    //           start is before end, and
+    //           end is before or equal to today
+    // EFFECTS: show info on the Remedies logged within the given date bounds, empty panel if none
+    @Override
+    public String viewLogRange(String start, String end) {
+        return null;
+    }
+
+
     // REQUIRES: index >= 0
     // MODIFIES: this
-    // EFFECTS: removes the Remedy at the given index from this log. all remedies after index are shifted down
-    //          one index
-    public void deleteRemedy(int index){
+    // EFFECTS: removes the Remedy at the given index from this log.
+    //          all remedies after index are shifted down one index
+    @Override
+    public void delete(int index){
 
     }
 
-    public Symptom getRemedy() {
+    public List<Remedy> getRemedy() {
         return null;
     }
 

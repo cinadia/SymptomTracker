@@ -7,7 +7,6 @@ import java.time.*;
 /**
  * A collection of Symptoms added by the user
  */
-// TODO: make this implement an interface
 // TODO: change date type
 public class SymptomLog implements Log {
 
@@ -43,7 +42,9 @@ public class SymptomLog implements Log {
         return null;
     }
 
-    // REQUIRES: start and end are valid dates such that start is before end, and end is before or equal to today
+    // REQUIRES: start and end are valid dates such that
+    //           start is before end, and
+    //           end is before or equal to today
     // EFFECTS: show info on the Symptoms logged within the given date bounds, empty panel if none
     @Override
     public String viewLogRange(String start, String end) {
@@ -52,8 +53,8 @@ public class SymptomLog implements Log {
 
     // REQUIRES: index >= 0
     // MODIFIES: this
-    // EFFECTS: removes the Symptom at the given index from this log. all symptoms after index are shifted down
-    //          one index
+    // EFFECTS: removes the Symptom at the given index from this log.
+    //          all log entries after index are shifted down one index
     @Override
     public void delete(int index){
 
