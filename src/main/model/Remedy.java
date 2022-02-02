@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * A Remedy
@@ -9,17 +9,17 @@ public class Remedy {
 
     // REQUIRES: location and remedy exist, date is valid
     // EFFECTS: creates a new Remedy with location, remedy, and date
-    public Remedy(String location, String remedy, Date date) {
+    public Remedy(String location, String remedy, String date) {
 
     }
 
     // REQUIRES: location and remedy either exist or are null,
-    //           Date is either valid or null
+    //           date is either valid or null
     // MODIFIES: this
     // EFFECTS: edits the Remedy at the given index in this log with the provided fields.
     //          "invalid" inputs to fields are not edited:
     //          null objects disregarded.
-    public void editRemedyByIndex(int index, String location, String remedy, Date date) {
+    public void editRemedy(String location, String remedy, String date) {
 
     }
 
@@ -31,7 +31,7 @@ public class Remedy {
         return null;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return null;
     }
 }

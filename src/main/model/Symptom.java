@@ -1,6 +1,7 @@
 package model;
 
-import java.util.Date;
+import java.util.Calendar;
+//import java.util.Date;
 
 /**
  * A Symptom
@@ -9,19 +10,19 @@ public class Symptom {
 
     // REQUIRES: location and sensation exist, severity in range [1, 5], date is valid, duration > 0
     // EFFECTS: Creates a new Symptom with location, sensation, severity, duration (minutes), and date
-    public Symptom(String location, String sensation, int severity, int duration, Date date) {
+    public Symptom(String location, String sensation, int severity, int duration, String date) {
 
     }
 
     // REQUIRES: location and sensation either exist or are null,
-    //           Date is either valid or null,
+    //           date is either valid or null,
     //           severity is either 1-5 or -1,
     //           duration is either a value in minutes > 0, or -1
     // MODIFIES: this
     // EFFECTS: edits this Symptom with the provided fields.
     //          "invalid" inputs to fields are not edited:
     //          null objects and ints of -1 are disregarded.
-    public Symptom editSymptom() {
+    public Symptom editSymptom(String location, String sensation, int severity, int duration, String date) {
         return null;
     }
 
@@ -41,7 +42,7 @@ public class Symptom {
         return 0;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return null;
     }
 

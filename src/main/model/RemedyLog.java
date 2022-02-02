@@ -1,11 +1,12 @@
 package model;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 /**
  * A collection of Remedies added by the user
  */
+// TODO: make this an abstract class :c
 public class RemedyLog {
 
     // EFFECTS: Creates an empty collection of Remedies (a log)
@@ -16,7 +17,7 @@ public class RemedyLog {
     // REQUIRES: location and remedy exist, date is valid
     // MODIFIES: this
     // EFFECTS: adds a Remedy to this log with location, remedy, and date
-    public void addRemedy(String location, String remedy, Date date) {
+    public void addRemedy(String location, String remedy, String date) {
 
     }
 
@@ -27,7 +28,7 @@ public class RemedyLog {
 
     // REQUIRES: start and end are valid dates such that start is before end, and end is before or equal to today
     // EFFECTS: show info on the Remedies logged within the given date bounds, empty panel if none
-    public List<Remedy> viewSelectRemedies(Date start, Date end) {
+    public List<Remedy> viewSelectRemedies(String start, String end) {
         return null;
     }
 
@@ -38,7 +39,7 @@ public class RemedyLog {
     // EFFECTS: edits the Remedy at the given index in this log with the provided fields.
     //          "invalid" inputs to fields are not edited:
     //          null objects disregarded.
-    public void editRemedyByIndex(int index, String location, String remedy, Date date) {
+    public void editRemedyByIndex(int index, String location, String remedy, String date) {
         // get index
         // pass arguments to editRemedy in Remedy class
     }
