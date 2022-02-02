@@ -26,8 +26,8 @@ Adding Logs:
     - the symptom duration
     - the date of the symptom occurrence 
 
-- As a user, I want to be able to log a remedy for a symptom location that includes
-  - the location that the remedy is for
+- As a user, I want to be able to add a remedy to my remody log that includes
+  - the location that the remedy is for (must be a location present as a symptom also)
   - the type of remedy it is (i.e hot/cold pack, pain meds, chiropractor)
   - the date that the remedy was used/applied
 
