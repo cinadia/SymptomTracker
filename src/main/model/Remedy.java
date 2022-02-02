@@ -13,6 +13,7 @@ public class Remedy {
 
     }
 
+    /*
     // REQUIRES: location and remedy either exist or are null,
     //           date is either valid or null
     // MODIFIES: this
@@ -22,6 +23,7 @@ public class Remedy {
     public void editRemedy(String location, String remedy, String date) {
 
     }
+    */
 
     public String getLocation() {
         return null;

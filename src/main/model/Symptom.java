@@ -14,6 +14,7 @@ public class Symptom {
 
     }
 
+    /*
     // REQUIRES: location and sensation either exist or are null,
     //           date is either valid or null,
     //           severity is either 1-5 or -1,
@@ -25,6 +26,7 @@ public class Symptom {
     public Symptom editSymptom(String location, String sensation, int severity, int duration, String date) {
         return null;
     }
+    */
 
     public String getLocation() {
         return null;

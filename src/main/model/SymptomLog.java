@@ -15,13 +15,22 @@ public class SymptomLog implements Log {
 
     }
 
+    /*
     // REQUIRES: location and sensation exist, severity in range [1, 5], date is valid, duration > 0
     // MODIFIES: this
     // EFFECTS: adds a Symptom to this log with location, sensation, severity, duration (minutes), and date
     public void addSymptom(String location, String sensation, int severity, int duration, String date) {
 
     }
+    */
 
+    // MODIFIES: this
+    // EFFECTS: adds a Symptom to this log
+    public void addSymptom(Symptom sym) {
+
+    }
+
+    /*
     // REQUIRES: index >= 0,
     //           location and sensation either exist or are null,
     //           date is either valid or null,
@@ -31,10 +40,18 @@ public class SymptomLog implements Log {
     // EFFECTS: edits the Symptom at the given index in this log with the provided fields.
     //          "invalid" inputs to fields are not edited:
     //          null objects and ints of -1 are disregarded.
-    public void editSymptomByIndex(int index, String location, String sensation, int severity, int duration, String date) {
+    public void editSymptomByIndex(int index, String location, String sensation, int severity, int duration,
+                                   String date) {
         // get index
         // pass arguments to editSymptom in Symptom class
     }
+    */
+
+    public void editSymptomByIndex(int index, Symptom sym) {
+        // get index
+        // use series of if statements and fields of sym to make a new sym to set at the index
+    }
+
 
     // EFFECTS: show all Symptoms logged and their index
     @Override
