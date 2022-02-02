@@ -43,15 +43,15 @@ public class RemedyTest {
         assertEquals(newDate, rem.getDate());
 
         // second test
-        newLocation = "hip";
-        newRemedy = "numb";
-        newDate = "2021-06-06";
+        String secondLocation = "hip";
+        String secondRemedy = "numb";
+        String secondDate = "2021-06-06";
         // call
-        rem.editRemedy(newLocation, newRemedy, newDate);
+        rem.editRemedy(secondLocation, secondRemedy, secondDate);
         // check
-        assertEquals(newLocation, rem.getLocation());
-        assertEquals(remedy, rem.getRemedy());
-        assertEquals(newDate, rem.getDate());
+        assertEquals(secondLocation, rem.getLocation());
+        assertEquals(secondRemedy, rem.getRemedy());
+        assertEquals(secondDate, rem.getDate());
     }
 
     @Test

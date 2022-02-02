@@ -55,19 +55,19 @@ class SymptomTest {
         assertEquals(newDate, sym.getDate());
 
         // second test
-        newLocation = "hip";
-        newSensation = "numb";
-        newSeverity = 1;
-        newDuration = 20;
-        newDate = "2021-06-06";
+        String secondLocation = "hip";
+        String secondSensation = "numb";
+        int secondSeverity = 1;
+        int secondDuration = 20;
+        String secondDate = "2021-06-06";
         // call
-        sym.editSymptom(newLocation, newSensation, newSeverity, newDuration, newDate);
+        sym.editSymptom(secondLocation, secondSensation, secondSeverity, secondDuration, secondDate);
         // check
-        assertEquals(newLocation, sym.getLocation());
-        assertEquals(newSensation, sym.getSensation());
-        assertEquals(newSeverity, sym.getSeverity());
-        assertEquals(newDuration, sym.getDuration());
-        assertEquals(newDate, sym.getDate());
+        assertEquals(secondLocation, sym.getLocation());
+        assertEquals(secondSensation, sym.getSensation());
+        assertEquals(secondSeverity, sym.getSeverity());
+        assertEquals(secondDuration, sym.getDuration());
+        assertEquals(secondDate, sym.getDate());
     }
 
     @Test
