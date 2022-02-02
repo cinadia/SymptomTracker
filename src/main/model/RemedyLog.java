@@ -32,6 +32,7 @@ public class RemedyLog implements Log {
         // pass arguments to editRemedy in Remedy class
     }
 
+    /*
     // EFFECTS: show all Remedies logged and their index
     @Override
     public String viewAllLogs() {
@@ -46,7 +47,7 @@ public class RemedyLog implements Log {
     public String viewLogRange(String start, String end) {
         return null;
     }
-
+    */
 
     // REQUIRES: index >= 0
     // MODIFIES: this

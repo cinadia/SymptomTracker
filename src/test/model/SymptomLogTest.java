@@ -83,16 +83,6 @@ public class SymptomLogTest {
     }
 
     @Test
-    public void testViewAllLogs() {
-
-    }
-
-    @Test
-    public void testViewLogRange() {
-
-    }
-
-    @Test
     public void testDeleteOneEntry() {
         // call
         slogOne.delete(0);
@@ -108,8 +98,6 @@ public class SymptomLogTest {
         assertEquals(s3, slogFive.getLog().get(1));
         assertEquals(s4, slogFive.getLog().get(2));
         assertEquals(s5, slogFive.getLog().get(3));
-
-
     }
 
     @Test

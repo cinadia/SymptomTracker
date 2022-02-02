@@ -53,6 +53,7 @@ public class SymptomLog implements Log {
     }
 
 
+    /*
     // EFFECTS: show all Symptoms logged and their index
     @Override
     public String viewAllLogs() {
@@ -67,6 +68,7 @@ public class SymptomLog implements Log {
     public String viewLogRange(String start, String end) {
         return null;
     }
+     */
 
     // REQUIRES: index >= 0
     // MODIFIES: this
