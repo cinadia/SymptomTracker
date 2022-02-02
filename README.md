@@ -16,3 +16,34 @@ how my discomfort levels were day-to-day, and also note the methods I used to tr
 discomfort. I hope this application can help those struggling with any kind of unwanted symptoms
 by giving them a space to track the ups and downs.
 
+## User Stories
+Adding Logs:
+- As a user, I want to be able to add a symptom to my symptom log
+  that includes the following (whose existece is *not* user-entered):
+    - the symptom location
+    - the symptom sensation (i.e. burning, numb, aching, sharp)
+    - the symptom severity (from 1-5)
+    - the symptom duration
+    - the date of the symptom occurrence 
+
+- As a user, I want to be able to log a remedy for a symptom location that includes
+  - the location that the remedy is for
+  - the type of remedy it is (i.e hot/cold pack, pain meds, chiropractor)
+  - the date that the remedy was used/applied
+
+Viewing Logs:
+- As a user, I want to be able to view my previous symptom logs:
+    - in their entirety
+    - by date
+- As a user, I want to be able to view my previous remedy logs:
+    - in their entirety
+    - by date
+
+Editing Logs:
+- As a user, I want to be able to edit a symptom log
+- As a user, I want to be able to edit a remedy log
+
+Deleting Logs:
+- As a user, I want to be able to delete a symptom log
+- As a user, I want to be able to delete a remedy log
+
