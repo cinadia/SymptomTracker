@@ -28,6 +28,7 @@ public class RemedyTest {
 
     }
 
+    /*
     @Test
     public void editRemedyAllValid() {
         // first test
@@ -95,4 +96,6 @@ public class RemedyTest {
         assertEquals(newRemedy, rem.getRemedy());
         assertEquals(date, rem.getDate());
     }
+
+     */
 }

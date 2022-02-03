@@ -35,7 +35,7 @@ class SymptomTest {
         assertEquals(date, sym.getDate());
 
     }
-
+    /*
     @Test
     public void editSymptomAllValid() {
         // first test
@@ -214,4 +214,6 @@ class SymptomTest {
         assertEquals(duration, sym.getDuration());
         assertEquals(date, sym.getDate());
     }
+
+     */
 }

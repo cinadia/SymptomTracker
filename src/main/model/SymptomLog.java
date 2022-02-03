@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.time.*;
@@ -10,9 +11,40 @@ import java.time.*;
 // TODO: change date type
 public class SymptomLog implements Log {
 
+
     // EFFECTS: Creates an empty collection of Symptoms (a log)
     public SymptomLog() {
 
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds Symptom sym to this log
+    @Override
+    public void add(Entry sym) {
+
+        System.out.println("adding");
+    }
+
+    // REQUIRES: index >= 0
+    // MODIFIES: this
+    // EFFECTS: replaces the Symptom at the given index in this log with sym
+    @Override
+    public void editLogByIndex(int index, Entry sym) {
+        // get index
+        // use series of if statements and fields of sym to make a new sym to set at the index
+    }
+
+    // REQUIRES: index >= 0
+    // MODIFIES: this
+    // EFFECTS: removes the Symptom at the given index from this log.
+    //          all log entries after index are shifted down one index
+    @Override
+    public void delete(int index){
+
+    }
+
+    public List<Entry> getLog() {
+        return new ArrayList<Entry>();
     }
 
     /*
@@ -23,12 +55,6 @@ public class SymptomLog implements Log {
 
     }
     */
-
-    // MODIFIES: this
-    // EFFECTS: adds a Symptom to this log
-    public void addSymptom(Symptom sym) {
-
-    }
 
     /*
     // REQUIRES: index >= 0,
@@ -47,12 +73,6 @@ public class SymptomLog implements Log {
     }
     */
 
-    public void editSymptomByIndex(int index, Symptom sym) {
-        // get index
-        // use series of if statements and fields of sym to make a new sym to set at the index
-    }
-
-
     /*
     // EFFECTS: show all Symptoms logged and their index
     @Override
@@ -69,17 +89,4 @@ public class SymptomLog implements Log {
         return null;
     }
      */
-
-    // REQUIRES: index >= 0
-    // MODIFIES: this
-    // EFFECTS: removes the Symptom at the given index from this log.
-    //          all log entries after index are shifted down one index
-    @Override
-    public void delete(int index){
-
-    }
-
-    public List<Symptom> getLog() {
-        return null;
-    }
 }

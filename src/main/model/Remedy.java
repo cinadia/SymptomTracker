@@ -5,12 +5,32 @@ import java.util.Calendar;
 /**
  * A Remedy
  */
-public class Remedy {
+public class Remedy implements Entry {
+
+    private String location;
+    private String remedy;
+    private String date;
 
     // REQUIRES: location and remedy exist, date is valid
     // EFFECTS: creates a new Remedy with location, remedy, and date
     public Remedy(String location, String remedy, String date) {
+        this.location = location;
+        this.remedy = remedy;
+        this.date = date;
+    }
 
+    @Override
+    public String getLocation() {
+        return this.location;
+    }
+
+    public String getRemedy() {
+        return this.remedy;
+    }
+
+    @Override
+    public String getDate() {
+        return this.date;
     }
 
     /*
@@ -24,16 +44,4 @@ public class Remedy {
 
     }
     */
-
-    public String getLocation() {
-        return null;
-    }
-
-    public String getRemedy() {
-        return null;
-    }
-
-    public String getDate() {
-        return null;
-    }
 }

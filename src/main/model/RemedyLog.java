@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -13,13 +14,34 @@ public class RemedyLog implements Log {
 
     }
 
-    // REQUIRES: location and remedy exist, date is valid
     // MODIFIES: this
-    // EFFECTS: adds a Remedy to this log with location, remedy, and date
-    public void addRemedy(String location, String remedy, String date) {
+    // EFFECTS: adds a Remedy to this log
+    public void add(Entry rem) {
 
     }
 
+    // REQUIRES: index >= 0
+    // MODIFIES: this
+    // EFFECTS: replaces the Symptom at the given index in this log with rem
+    public void editLogByIndex(int index, Entry rem) {
+        // get index
+        // use series of if statements and fields of rem to make a new rem to set at the index
+    }
+
+    // REQUIRES: index >= 0
+    // MODIFIES: this
+    // EFFECTS: removes the Remedy at the given index from this log.
+    //          all remedies after index are shifted down one index
+    @Override
+    public void delete(int index){
+
+    }
+
+    public List<Entry> getLog() {
+        return new ArrayList<Entry>();
+    }
+
+     /*
     // REQUIRES: index >= 0,
     //           location and remedy either exist or are null,
     //           Date is either valid or null
@@ -31,6 +53,7 @@ public class RemedyLog implements Log {
         // get index
         // pass arguments to editRemedy in Remedy class
     }
+     */
 
     /*
     // EFFECTS: show all Remedies logged and their index
@@ -48,19 +71,5 @@ public class RemedyLog implements Log {
         return null;
     }
     */
-
-    // REQUIRES: index >= 0
-    // MODIFIES: this
-    // EFFECTS: removes the Remedy at the given index from this log.
-    //          all remedies after index are shifted down one index
-    @Override
-    public void delete(int index){
-
-    }
-
-    public List<Remedy> getRemedy() {
-        return null;
-    }
-
 
 }

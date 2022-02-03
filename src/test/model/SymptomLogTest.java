@@ -26,15 +26,15 @@ public class SymptomLogTest {
         s2 = new Symptom("jaw", "hot", 1, 30, "2022-02-02");
         s3 = new Symptom("hand", "ache", 3, 15, "2021-12-12");
         s4 = new Symptom("hip", "stab", 4, 3, "2021-12-11");
-        s5 = new Symptom("hip", "stab", 4, 3, "2021-12-10");
+        s5 = new Symptom("back", "stab", 4, 3, "2021-12-10");
 
-        slogOne.addSymptom(s1);
+        slogOne.add(s1);
 
-        slogFive.addSymptom(s1);
-        slogFive.addSymptom(s2);
-        slogFive.addSymptom(s3);
-        slogFive.addSymptom(s4);
-        slogFive.addSymptom(s5);
+        slogFive.add(s1);
+        slogFive.add(s2);
+        slogFive.add(s3);
+        slogFive.add(s4);
+        slogFive.add(s5);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class SymptomLogTest {
     public void testAddSymptom() {
         // first time
         // call
-        slog.addSymptom(s1);
+        slog.add(s1);
 
         // check
         assertEquals(1, slog.getLog().size());
@@ -55,7 +55,7 @@ public class SymptomLogTest {
 
         // second time
         // call
-        slog.addSymptom(s2);
+        slog.add(s2);
 
         // check
         assertEquals(2, slog.getLog().size());
@@ -67,7 +67,7 @@ public class SymptomLogTest {
     @Test
     public void testEditSymptomByIndexSizeOne() {
         // call
-        slogOne.editSymptomByIndex(0, s2); // replace s1 with s2
+        slogOne.editLogByIndex(0, s2); // replace s1 with s2
         // check
         assertEquals(1, slogOne.getLog().size());
         assertEquals(s2, slogOne.getLog().get(0));
@@ -76,7 +76,7 @@ public class SymptomLogTest {
     @Test
     public void testEditSymptomByIndexSizeFive() {
         // call
-        slogFive.editSymptomByIndex(3, s2); // replace s4 with s2
+        slogFive.editLogByIndex(3, s2); // replace s4 with s2
         // check
         assertEquals(5, slogOne.getLog().size());
         assertEquals(s2, slogOne.getLog().get(3));
@@ -133,7 +133,5 @@ public class SymptomLogTest {
         assertEquals(s3, slogFive.getLog().get(1));
         assertEquals(s4, slogFive.getLog().get(2));
     }
-
-
 
 }

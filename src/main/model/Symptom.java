@@ -6,12 +6,44 @@ import java.util.Calendar;
 /**
  * A Symptom
  */
-public class Symptom {
+public class Symptom implements Entry {
+
+    private String location;
+    private String sensation;
+    private int severity; // between 1 and 5
+    private int duration; // > 0
+    private String date; // current format is "YYYY-MM-DD"
 
     // REQUIRES: location and sensation exist, severity in range [1, 5], date is valid, duration > 0
     // EFFECTS: Creates a new Symptom with location, sensation, severity, duration (minutes), and date
     public Symptom(String location, String sensation, int severity, int duration, String date) {
+        this.location = location;
+        this.sensation = sensation;
+        this.severity = severity;
+        this.duration = duration;
+        this.date = date;
+    }
 
+    @Override
+    public String getLocation() {
+        return this.location;
+    }
+
+    public String getSensation() {
+        return this.sensation;
+    }
+
+    public int getSeverity() {
+        return this.severity;
+    }
+
+    public int getDuration() {
+        return this.duration;
+    }
+
+    @Override
+    public String getDate() {
+        return this.date;
     }
 
     /*
@@ -27,26 +59,4 @@ public class Symptom {
         return null;
     }
     */
-
-    public String getLocation() {
-        return null;
-    }
-
-    public String getSensation() {
-        return null;
-    }
-
-    public int getSeverity() {
-        return 0; // an invalid value, and also an invalid *invalid* value (-1 is true 'invalid')
-    }
-
-    public int getDuration() {
-        return 0;
-    }
-
-    public String getDate() {
-        return null;
-    }
-
-
 }
