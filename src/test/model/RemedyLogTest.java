@@ -5,151 +5,73 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RemedyLogTest {
+public class RemedyLogTest extends LogTest {
 
-    private RemedyLog rlog;
-    private RemedyLog rlogOne;
-    private RemedyLog rlogFive;
-    private Remedy s1;
-    private Remedy s2;
-    private Remedy s3;
-    private Remedy s4;
-    private Remedy s5;
+//    private RemedyLog log;
+//    private RemedyLog logSizeOne;
+//    private RemedyLog logSizeFive;
+//    private Remedy e1;
+//    private Remedy e2;
+//    private Remedy e3;
+//    private Remedy e4;
+//    private Remedy e5;
     private Remedy remNoChangesToEdit;
 
     @BeforeEach
     public void setup() {
-        rlog = new RemedyLog();
-        rlogOne = new RemedyLog();
-        rlogFive = new RemedyLog();
+        log = new RemedyLog();
+        logSizeOne = new RemedyLog();
+        logSizeFive = new RemedyLog();
 
-        s1 = new Remedy("foot", "ice pack", "2022-01-01");
-        s2 = new Remedy("jaw", "acupuncture", "2022-02-02");
-        s3 = new Remedy("hand", "physiotherapy","2021-12-12");
-        s4 = new Remedy("hip", "hot pack", "2021-12-11");
-        s5 = new Remedy("back", "chiropractor","2021-12-10");
+        e1 = new Remedy("foot", "ice pack", "2022-01-01");
+        e2 = new Remedy("jaw", "acupuncture", "2022-02-02");
+        e3 = new Remedy("hand", "physiotherapy","2021-12-12");
+        e4 = new Remedy("hip", "hot pack", "2021-12-11");
+        e5 = new Remedy("back", "chiropractor","2021-12-10");
         remNoChangesToEdit = new Remedy(null, null, null);
 
-        rlogOne.add(s1);
+        logSizeOne.add(e1);
 
-        rlogFive.add(s1);
-        rlogFive.add(s2);
-        rlogFive.add(s3);
-        rlogFive.add(s4);
-        rlogFive.add(s5);
+        logSizeFive.add(e1);
+        logSizeFive.add(e2);
+        logSizeFive.add(e3);
+        logSizeFive.add(e4);
+        logSizeFive.add(e5);
     }
 
     @Test
-    public void testConstructor() {
+    public void testEditLogByIndexSizeOne() {
+        // call
+        logSizeOne.editLogByIndex(0, e2); // replace s1 with s2
         // check
-        assertEquals(0, rlog.getLog().size());
+        assertEquals(1, logSizeOne.getLog().size());
+        assertEquals(e2.getLocation(), logSizeOne.getLog().get(0).getLocation());
+        assertEquals(e2.getRemedy(), logSizeOne.getLog().get(0).getRemedy());
+        assertEquals(e2.getDate(), logSizeOne.getLog().get(0).getDate());
     }
 
     @Test
-    public void testAddRemedy() {
-        // first time
+    public void testEditLogByIndexSizeFive() {
         // call
-        rlog.add(s1);
-
+        logSizeFive.editLogByIndex(3, e2); // replace s4 with s2
         // check
-        assertEquals(1, rlog.getLog().size());
-        assertEquals(s1, rlog.getLog().get(0));
+        assertEquals(5, logSizeFive.getLog().size());
+        assertEquals(e2.getLocation(), logSizeFive.getLog().get(3).getLocation());
+        assertEquals(e2.getRemedy(), logSizeFive.getLog().get(3).getRemedy());
+        assertEquals(e2.getDate(), logSizeFive.getLog().get(3).getDate());
 
-        // second time
+    }
+
+    @Test
+    public void testEditLogByIndexNoEntryValuesToChange() {
         // call
-        rlog.add(s2);
-
+        logSizeFive.editLogByIndex(3, remNoChangesToEdit);
         // check
-        assertEquals(2, rlog.getLog().size());
-        assertEquals(s1, rlog.getLog().get(0));
-        assertEquals(s2, rlog.getLog().get(1));
+        assertEquals(5, logSizeFive.getLog().size());
+        assertEquals(e4.getLocation(), logSizeFive.getLog().get(3).getLocation());
+        assertEquals(e4.getRemedy(), logSizeFive.getLog().get(3).getRemedy());
+        assertEquals(e4.getDate(), logSizeFive.getLog().get(3).getDate());
 
     }
 
-    @Test
-    public void testEditRemedyByIndexSizeOne() {
-        // call
-        rlogOne.editLogByIndex(0, s2); // replace s1 with s2
-        // check
-        assertEquals(1, rlogOne.getLog().size());
-        assertEquals(s2.getLocation(), rlogOne.getLog().get(0).getLocation());
-        assertEquals(s2.getRemedy(), rlogOne.getLog().get(0).getRemedy());
-        assertEquals(s2.getDate(), rlogOne.getLog().get(0).getDate());
-    }
-
-    @Test
-    public void testEditRemedyByIndexSizeFive() {
-        // call
-        rlogFive.editLogByIndex(3, s2); // replace s4 with s2
-        // check
-        assertEquals(5, rlogFive.getLog().size());
-        assertEquals(s2.getLocation(), rlogFive.getLog().get(3).getLocation());
-        assertEquals(s2.getRemedy(), rlogFive.getLog().get(3).getRemedy());
-        assertEquals(s2.getDate(), rlogFive.getLog().get(3).getDate());
-
-    }
-
-    @Test
-    public void testEditRemedyByIndexNoChangesToMake() {
-        // call
-        rlogFive.editLogByIndex(3, remNoChangesToEdit);
-        // check
-        assertEquals(5, rlogFive.getLog().size());
-        assertEquals(s4.getLocation(), rlogFive.getLog().get(3).getLocation());
-        assertEquals(s4.getRemedy(), rlogFive.getLog().get(3).getRemedy());
-        assertEquals(s4.getDate(), rlogFive.getLog().get(3).getDate());
-
-    }
-
-    @Test
-    public void testDeleteOneEntry() {
-        // call
-        rlogOne.delete(0);
-        assertEquals(0, rlogOne.getLog().size());
-    }
-
-    @Test
-    public void testDeleteBeginningOfManyEntries() {
-        //call
-        rlogFive.delete(0); // deletes s1
-        assertEquals(4, rlogFive.getLog().size());
-        assertEquals(s2, rlogFive.getLog().get(0));
-        assertEquals(s3, rlogFive.getLog().get(1));
-        assertEquals(s4, rlogFive.getLog().get(2));
-        assertEquals(s5, rlogFive.getLog().get(3));
-    }
-
-    @Test
-    public void testDeleteMiddleOfManyEntries() {
-        // call
-        rlogFive.delete(2); // deletes s3
-        assertEquals(4, rlogFive.getLog().size());
-        assertEquals(s1, rlogFive.getLog().get(0));
-        assertEquals(s2, rlogFive.getLog().get(1));
-        assertEquals(s4, rlogFive.getLog().get(2));
-        assertEquals(s5, rlogFive.getLog().get(3));
-    }
-
-    @Test
-    public void testDeleteEndOfManyEntries() {
-        // call
-        rlogFive.delete(4); // deletes s5
-        assertEquals(4, rlogFive.getLog().size());
-        assertEquals(s1, rlogFive.getLog().get(0));
-        assertEquals(s2, rlogFive.getLog().get(1));
-        assertEquals(s3, rlogFive.getLog().get(2));
-        assertEquals(s4, rlogFive.getLog().get(3));
-    }
-
-    @Test
-    public void testDeleteManyEntries() {
-        // call
-        rlogFive.delete(0); // deletes s1
-        rlogFive.delete(3); // deletes s5
-
-        assertEquals(3, rlogFive.getLog().size());
-        assertEquals(s2, rlogFive.getLog().get(0));
-        assertEquals(s3, rlogFive.getLog().get(1));
-        assertEquals(s4, rlogFive.getLog().get(2));
-    }
 }
