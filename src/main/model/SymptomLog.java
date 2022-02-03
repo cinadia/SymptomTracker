@@ -9,29 +9,73 @@ import java.time.*;
  * A collection of Symptoms added by the user
  */
 // TODO: change date type
+// TODO: change to abstract class!
 public class SymptomLog implements Log {
 
+    private ArrayList<Entry> log;
 
     // EFFECTS: Creates an empty collection of Symptoms (a log)
     public SymptomLog() {
-
+        log  = new ArrayList<Entry>();
     }
 
     // MODIFIES: this
     // EFFECTS: adds Symptom sym to this log
     @Override
     public void add(Entry sym) {
-
-        System.out.println("adding");
+        log.add(sym);
     }
 
     // REQUIRES: index >= 0
     // MODIFIES: this
     // EFFECTS: replaces the Symptom at the given index in this log with sym
-    @Override
+    @Override //  TODO: can I use @SuppressWarnings("methodlength") here?
     public void editLogByIndex(int index, Entry sym) {
-        // get index
-        // use series of if statements and fields of sym to make a new sym to set at the index
+        Entry editing = log.get(index);
+
+        String location = sym.getLocation();
+        String sensation = sym.getSensation();
+        int severity = sym.getSeverity();
+        int duration = sym.getDuration();
+        String date = sym.getDate();
+
+        String finalLocation;
+        String finalSensation;
+        int finalSeverity;
+        int finalDuration;
+        String finalDate;
+
+        if (location == null) {
+            finalLocation = editing.getLocation(); // previous location
+        } else {
+            finalLocation = location;
+        }
+
+        if (sensation == null) {
+            finalSensation = editing.getSensation(); // previous sensation
+        } else {
+            finalSensation = sensation;
+        }
+
+        if (severity == -1) {
+            finalSeverity = editing.getSeverity();
+        } else {
+            finalSeverity = severity;
+        }
+
+        if (duration == -1) {
+            finalDuration = editing.getDuration();
+        } else {
+            finalDuration = duration;
+        }
+
+        if (date == null) {
+            finalDate = editing.getDate();
+        } else {
+            finalDate = date;
+        }
+
+        log.set(index, new Symptom(finalLocation, finalSensation, finalSeverity, finalDuration, finalDate));
     }
 
     // REQUIRES: index >= 0
@@ -39,12 +83,12 @@ public class SymptomLog implements Log {
     // EFFECTS: removes the Symptom at the given index from this log.
     //          all log entries after index are shifted down one index
     @Override
-    public void delete(int index){
-
+    public void delete(int index) {
+        log.remove(index);
     }
 
     public List<Entry> getLog() {
-        return new ArrayList<Entry>();
+        return log;
     }
 
     /*

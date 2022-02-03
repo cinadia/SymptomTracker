@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * Represents a collection of entries.
  */
+// TODO: change to abstract class!
 public interface Log {
 
     // MODIFIES: this

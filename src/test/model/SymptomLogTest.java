@@ -15,6 +15,7 @@ public class SymptomLogTest {
     private Symptom s3;
     private Symptom s4;
     private Symptom s5;
+    private Symptom symNoChangesToEdit;
 
     @BeforeEach
     public void setup() {
@@ -27,6 +28,7 @@ public class SymptomLogTest {
         s3 = new Symptom("hand", "ache", 3, 15, "2021-12-12");
         s4 = new Symptom("hip", "stab", 4, 3, "2021-12-11");
         s5 = new Symptom("back", "stab", 4, 3, "2021-12-10");
+        symNoChangesToEdit = new Symptom(null, null, -1, -1, null);
 
         slogOne.add(s1);
 
@@ -65,21 +67,47 @@ public class SymptomLogTest {
     }
 
     @Test
-    public void testEditSymptomByIndexSizeOne() {
+    public void testEditLogByIndexSizeOne() {
         // call
         slogOne.editLogByIndex(0, s2); // replace s1 with s2
         // check
         assertEquals(1, slogOne.getLog().size());
-        assertEquals(s2, slogOne.getLog().get(0));
+        assertEquals(s2.getLocation(), slogOne.getLog().get(0).getLocation());
+        assertEquals(s2.getSensation(), slogOne.getLog().get(0).getSensation());
+        assertEquals(s2.getSeverity(), slogOne.getLog().get(0).getSeverity());
+        assertEquals(s2.getDuration(), slogOne.getLog().get(0).getDuration());
+        assertEquals(s2.getDate(), slogOne.getLog().get(0).getDate());
+
+        //assertEquals(s2, slogOne.getLog().get(0));
     }
 
     @Test
-    public void testEditSymptomByIndexSizeFive() {
+    public void testEditLogByIndexSizeFive() {
         // call
         slogFive.editLogByIndex(3, s2); // replace s4 with s2
         // check
-        assertEquals(5, slogOne.getLog().size());
-        assertEquals(s2, slogOne.getLog().get(3));
+        assertEquals(5, slogFive.getLog().size());
+
+        assertEquals(s2.getLocation(), slogFive.getLog().get(3).getLocation());
+        assertEquals(s2.getSensation(), slogFive.getLog().get(3).getSensation());
+        assertEquals(s2.getSeverity(), slogFive.getLog().get(3).getSeverity());
+        assertEquals(s2.getDuration(), slogFive.getLog().get(3).getDuration());
+        assertEquals(s2.getDate(), slogFive.getLog().get(3).getDate());
+    }
+
+    @Test
+    public void testEditLogByIndexSymValuesDontChange() {
+        // call
+        // change s2 to symNoChangesToEdit, except slogFive[3] doesn't change in value (stays s4)
+        slogFive.editLogByIndex(3, symNoChangesToEdit);
+        // check
+        assertEquals(5, slogFive.getLog().size());
+
+        assertEquals(s4.getLocation(), slogFive.getLog().get(3).getLocation());
+        assertEquals(s4.getSensation(), slogFive.getLog().get(3).getSensation());
+        assertEquals(s4.getSeverity(), slogFive.getLog().get(3).getSeverity());
+        assertEquals(s4.getDuration(), slogFive.getLog().get(3).getDuration());
+        assertEquals(s4.getDate(), slogFive.getLog().get(3).getDate());
     }
 
     @Test
@@ -93,6 +121,7 @@ public class SymptomLogTest {
     public void testDeleteBeginningOfManyEntries() {
         //call
         slogFive.delete(0); // deletes s1
+        // check
         assertEquals(4, slogFive.getLog().size());
         assertEquals(s2, slogFive.getLog().get(0));
         assertEquals(s3, slogFive.getLog().get(1));
@@ -104,7 +133,7 @@ public class SymptomLogTest {
     public void testDeleteMiddleOfManyEntries() {
         // call
         slogFive.delete(2); // deletes s3
-        assertEquals(4, slog.getLog().size());
+        assertEquals(4, slogFive.getLog().size());
         assertEquals(s1, slogFive.getLog().get(0));
         assertEquals(s2, slogFive.getLog().get(1));
         assertEquals(s4, slogFive.getLog().get(2));

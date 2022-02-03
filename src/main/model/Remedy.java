@@ -24,6 +24,7 @@ public class Remedy implements Entry {
         return this.location;
     }
 
+    @Override
     public String getRemedy() {
         return this.remedy;
     }
@@ -31,6 +32,18 @@ public class Remedy implements Entry {
     @Override
     public String getDate() {
         return this.date;
+    }
+
+    public int getSeverity() {
+        return -1;
+    }
+
+    public int getDuration() {
+        return -1;
+    }
+
+    public String getSensation() {
+        return null;
     }
 
     /*

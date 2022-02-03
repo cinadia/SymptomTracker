@@ -46,6 +46,11 @@ public class Symptom implements Entry {
         return this.date;
     }
 
+    public String getRemedy() {
+        return null;
+    }
+
+
     /*
     // REQUIRES: location and sensation either exist or are null,
     //           date is either valid or null,

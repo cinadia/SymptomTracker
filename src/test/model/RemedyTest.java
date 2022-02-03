@@ -22,6 +22,7 @@ public class RemedyTest {
     @Test
     public void testConstructor() {
         // call and check
+        rem = new Remedy(location, remedy, date);
         assertEquals(location, rem.getLocation());
         assertEquals(remedy, rem.getRemedy());
         assertEquals(date, rem.getDate());
