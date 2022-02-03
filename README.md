@@ -32,12 +32,8 @@ Adding Logs:
   - the date that the remedy was used/applied
 
 Viewing Logs:
-- As a user, I want to be able to view my previous symptom logs:
-    - in their entirety
-    - by date
-- As a user, I want to be able to view my previous remedy logs:
-    - in their entirety
-    - by date
+- As a user, I want to be able to view my previous symptom logs
+- As a user, I want to be able to view my previous remedy logs
 
 Editing Logs:
 - As a user, I want to be able to edit a symptom log
@@ -46,8 +42,3 @@ Editing Logs:
 Deleting Logs:
 - As a user, I want to be able to delete a symptom log
 - As a user, I want to be able to delete a remedy log
-
-Viewing Stats: 
-- As a user, I want to be able to view a daily summary of my symptoms
-- As a user, I want to be able to view a summary of my symptoms from a start 
-and end date of my choosing

@@ -52,6 +52,9 @@ public class SymptomLogTest extends LogTest {
         assertEquals(e2.getSeverity(), logSizeOne.getLog().get(0).getSeverity());
         assertEquals(e2.getDuration(), logSizeOne.getLog().get(0).getDuration());
         assertEquals(e2.getDate(), logSizeOne.getLog().get(0).getDate());
+        assertEquals(e2.getScore(),
+                logSizeOne.getLog().get(0).getSeverity() * logSizeOne.getLog().get(0).getDuration());
+
     }
 
     @Override
@@ -67,6 +70,9 @@ public class SymptomLogTest extends LogTest {
         assertEquals(e2.getSeverity(), logSizeFive.getLog().get(3).getSeverity());
         assertEquals(e2.getDuration(), logSizeFive.getLog().get(3).getDuration());
         assertEquals(e2.getDate(), logSizeFive.getLog().get(3).getDate());
+        assertEquals(e2.getScore(),
+                logSizeFive.getLog().get(3).getSeverity() * logSizeFive.getLog().get(3).getDuration());
+
     }
 
     @Override
@@ -83,6 +89,9 @@ public class SymptomLogTest extends LogTest {
         assertEquals(e4.getSeverity(), logSizeFive.getLog().get(3).getSeverity());
         assertEquals(e4.getDuration(), logSizeFive.getLog().get(3).getDuration());
         assertEquals(e4.getDate(), logSizeFive.getLog().get(3).getDate());
+        assertEquals(e4.getScore(),
+                logSizeFive.getLog().get(3).getSeverity() * logSizeFive.getLog().get(3).getDuration());
+
     }
 
 }

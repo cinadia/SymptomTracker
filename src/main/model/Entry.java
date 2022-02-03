@@ -16,13 +16,13 @@ public abstract class Entry {
         return this.date;
     }
 
-    abstract int getSeverity();
+    public abstract int getSeverity();
 
-    abstract int getDuration();
+    public abstract int getDuration();
 
-    abstract String getSensation();
+    public abstract String getSensation();
 
-    abstract String getRemedy();
+    public abstract String getRemedy();
 
-
+    public abstract int getScore();
 }

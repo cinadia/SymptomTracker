@@ -20,6 +20,7 @@ public class Remedy extends Entry {
         return this.remedy;
     }
 
+
     @Override
     public int getSeverity() {
         return -1;
@@ -33,6 +34,11 @@ public class Remedy extends Entry {
     @Override
     public String getSensation() {
         return null;
+    }
+
+    @Override
+    public int getScore() {
+        return -1;
     }
 
 }

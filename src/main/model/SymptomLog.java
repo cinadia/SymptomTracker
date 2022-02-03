@@ -26,12 +26,14 @@ public class SymptomLog extends Log {
         int severity = sym.getSeverity();
         int duration = sym.getDuration();
         String date = sym.getDate();
+        int score = sym.getScore();
 
         String finalLocation;
         String finalSensation;
         int finalSeverity;
         int finalDuration;
         String finalDate;
+        int finalScore;
 
         if (location == null) {
             finalLocation = editing.getLocation(); // previous location
@@ -49,6 +51,7 @@ public class SymptomLog extends Log {
             finalSeverity = editing.getSeverity();
         } else {
             finalSeverity = severity;
+
         }
 
         if (duration == -1) {
@@ -62,7 +65,6 @@ public class SymptomLog extends Log {
         } else {
             finalDate = date;
         }
-
         log.set(index, new Symptom(finalLocation, finalSensation, finalSeverity, finalDuration, finalDate));
     }
 }

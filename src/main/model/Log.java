@@ -30,7 +30,7 @@ public abstract class Log {
         log.remove(index);
     }
 
-    List<Entry> getLog() {
+    public List<Entry> getLog() {
         return log;
     }
 
