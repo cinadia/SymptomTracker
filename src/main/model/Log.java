@@ -9,7 +9,7 @@ import java.util.List;
 // TODO: change to abstract class!
 public abstract class Log {
 
-    private ArrayList<Entry> log;
+    protected ArrayList<Entry> log;
 
     // MODIFIES: this
     // EFFECTS: adds an Entry to this log

@@ -12,7 +12,7 @@ import java.time.*;
 // TODO: change to abstract class!
 public class SymptomLog extends Log {
 
-    private ArrayList<Entry> log;
+    //private ArrayList<Entry> log;
 
     // EFFECTS: Creates an empty collection of Symptoms (a log)
     public SymptomLog() {

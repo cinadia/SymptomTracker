@@ -3,19 +3,26 @@ package model;
 /**
  * Represents an entry in a log.
  */
-public interface Entry {
+public abstract class Entry {
 
-    String getLocation();
+    protected String location;
+    protected String date;
 
-    String getDate();
+    public String getLocation() {
+        return this.location;
+    }
 
-    int getSeverity();
+    public String getDate() {
+        return this.date;
+    }
 
-    int getDuration();
+    abstract int getSeverity();
 
-    String getSensation();
+    abstract int getDuration();
 
-    String getRemedy();
+    abstract String getSensation();
+
+    abstract String getRemedy();
 
 
 }

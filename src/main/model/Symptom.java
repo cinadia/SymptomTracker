@@ -6,13 +6,13 @@ import java.util.Calendar;
 /**
  * A Symptom
  */
-public class Symptom implements Entry {
+public class Symptom extends Entry {
 
-    private String location;
+    //private String location;
     private String sensation;
     private int severity; // between 1 and 5
     private int duration; // > 0
-    private String date; // current format is "YYYY-MM-DD"
+   // private String date; // current format is "YYYY-MM-DD"
 
     // REQUIRES: location and sensation exist, severity in range [1, 5], date is valid, duration > 0
     // EFFECTS: Creates a new Symptom with location, sensation, severity, duration (minutes), and date
@@ -24,10 +24,13 @@ public class Symptom implements Entry {
         this.date = date;
     }
 
+    /*
     @Override
     public String getLocation() {
         return this.location;
     }
+
+     */
 
     public String getSensation() {
         return this.sensation;
@@ -41,10 +44,13 @@ public class Symptom implements Entry {
         return this.duration;
     }
 
+    /*
     @Override
     public String getDate() {
         return this.date;
     }
+    */
+
 
     public String getRemedy() {
         return null;
