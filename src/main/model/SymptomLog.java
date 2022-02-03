@@ -10,7 +10,7 @@ import java.time.*;
  */
 // TODO: change date type
 // TODO: change to abstract class!
-public class SymptomLog implements Log {
+public class SymptomLog extends Log {
 
     private ArrayList<Entry> log;
 
@@ -19,12 +19,15 @@ public class SymptomLog implements Log {
         log  = new ArrayList<Entry>();
     }
 
+    /*
     // MODIFIES: this
     // EFFECTS: adds Symptom sym to this log
     @Override
     public void add(Entry sym) {
         log.add(sym);
     }
+
+     */
 
     // REQUIRES: index >= 0
     // MODIFIES: this
@@ -78,6 +81,7 @@ public class SymptomLog implements Log {
         log.set(index, new Symptom(finalLocation, finalSensation, finalSeverity, finalDuration, finalDate));
     }
 
+    /*
     // REQUIRES: index >= 0
     // MODIFIES: this
     // EFFECTS: removes the Symptom at the given index from this log.
@@ -87,9 +91,14 @@ public class SymptomLog implements Log {
         log.remove(index);
     }
 
+     */
+
+    /*
     public List<Entry> getLog() {
         return log;
     }
+
+     */
 
     /*
     // REQUIRES: location and sensation exist, severity in range [1, 5], date is valid, duration > 0

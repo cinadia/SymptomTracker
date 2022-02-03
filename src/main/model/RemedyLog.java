@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * A collection of Remedies added by the user
  */
-public class RemedyLog implements Log {
+public class RemedyLog extends Log {
 
     private ArrayList<Entry> log;
 
@@ -17,6 +17,7 @@ public class RemedyLog implements Log {
 
     }
 
+    /*
     // MODIFIES: this
     // EFFECTS: adds a Remedy to this log
     @Override
@@ -24,6 +25,8 @@ public class RemedyLog implements Log {
         log.add(rem);
 
     }
+
+     */
 
     // REQUIRES: index >= 0
     // MODIFIES: this
@@ -62,6 +65,7 @@ public class RemedyLog implements Log {
 
     }
 
+    /*
     // REQUIRES: index >= 0
     // MODIFIES: this
     // EFFECTS: removes the Remedy at the given index from this log.
@@ -71,9 +75,13 @@ public class RemedyLog implements Log {
         log.remove(index);
     }
 
+     */
+
+    /*
     public List<Entry> getLog() {
         return log;
     }
+    */
 
      /*
     // REQUIRES: index >= 0,
