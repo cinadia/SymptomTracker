@@ -185,6 +185,7 @@ public class SymmerApp {
 
     // MODIFIES: this
     // EFFECTS: adds an entry to the log: adds symptom if addSymptom == true, else adds remedy
+    @SuppressWarnings("methodlength")
     private void addEntry(Boolean addSymptom) {
         if (addSymptom) {
             String location;
@@ -254,6 +255,7 @@ public class SymmerApp {
 
     // MODIFIES: this
     // EFFECTS: edits an entry in the log: edits a symptom if addSymptom == true, else edits a remedy
+    @SuppressWarnings("methodlength")
     private void editEntry(Boolean editSymptom) {
         if (editSymptom) {
             String newLocation;
@@ -440,6 +442,7 @@ public class SymmerApp {
     }
 
     // EFFECTS: shows this log: shows symLog if viewSymptoms == true, else shows remLog
+    @SuppressWarnings("methodlength")
     private void viewAllLogs(Boolean viewSymptoms) {
         if (viewSymptoms) {
             System.out.println("~~~~~SHOWING SYMPTOM LOG~~~~~~");
@@ -475,6 +478,7 @@ public class SymmerApp {
     }
 
     // EFFECTS: shows all logs recorded on a certain date: shows symptom(s) if showSymptom == true, else shows remedy(s)
+    @SuppressWarnings("methodlength")
     private void viewLogOnDate(Boolean showSymptom) {
         if (showSymptom) {
             System.out.println("Choose the date that you would like to view the symptoms logged on. Ensure it is "

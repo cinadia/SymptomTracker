@@ -17,7 +17,8 @@ public class SymptomLog extends Log {
     // REQUIRES: index >= 0
     // MODIFIES: this
     // EFFECTS: replaces the Symptom at the given index in this log with sym
-    @Override //  TODO: can I use @SuppressWarnings("methodlength") here?
+    @Override
+    @SuppressWarnings("methodlength")
     public void editLogByIndex(int index, Entry sym) {
         Entry editing = log.get(index);
 
