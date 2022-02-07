@@ -36,4 +36,29 @@ class SymptomTest {
         assertEquals(severity * duration, sym.getScore());
 
     }
+
+    @Test
+    public void testGetSensation() {
+        assertEquals(sensation, sym.getSensation());
+    }
+
+    @Test
+    public void testGetSeverity() {
+        assertEquals(severity, sym.getSeverity());
+    }
+
+    @Test
+    public void testGetDuration() {
+        assertEquals(duration, sym.getDuration());
+    }
+
+    @Test
+    public void testGetScore() {
+        assertEquals(duration * severity, sym.getScore());
+    }
+
+    @Test
+    public void testGetRemedy() {
+        assertEquals(null, sym.getRemedy());
+    }
 }

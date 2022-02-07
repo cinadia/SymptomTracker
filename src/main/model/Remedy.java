@@ -20,7 +20,6 @@ public class Remedy extends Entry {
         return this.remedy;
     }
 
-
     @Override
     public int getSeverity() {
         return -1;

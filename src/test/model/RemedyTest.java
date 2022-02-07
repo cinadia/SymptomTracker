@@ -29,74 +29,23 @@ public class RemedyTest {
 
     }
 
-    /*
     @Test
-    public void editRemedyAllValid() {
-        // first test
-        // setup
-        String newLocation = "foot";
-        String newRemedy = "sharp";
-        String newDate = "2021-12-12";
-        // call
-        rem.editRemedy(newLocation, newRemedy, newDate);
-        // check
-        assertEquals(newLocation, rem.getLocation());
-        assertEquals(newRemedy, rem.getRemedy());
-        assertEquals(newDate, rem.getDate());
-
-        // second test
-        String secondLocation = "hip";
-        String secondRemedy = "numb";
-        String secondDate = "2021-06-06";
-        // call
-        rem.editRemedy(secondLocation, secondRemedy, secondDate);
-        // check
-        assertEquals(secondLocation, rem.getLocation());
-        assertEquals(secondRemedy, rem.getRemedy());
-        assertEquals(secondDate, rem.getDate());
+    public void testGetSensation() {
+        assertEquals(null, rem.getSensation());
     }
 
     @Test
-    public void editRemedyLocationInvalid() {
-        // setup
-        String newLocation = null;
-        String newRemedy = "sharp";
-        String newDate = "2021-12-12";
-        // call
-        rem.editRemedy(newLocation, newRemedy, newDate);        // check
-        assertEquals(location, rem.getLocation()); // stays the same
-        assertEquals(newRemedy, rem.getRemedy());
-        assertEquals(newDate, rem.getDate());
-
+    public void testGetSeverity() {
+        assertEquals(-1, rem.getSeverity());
     }
 
     @Test
-    public void editRemedyRemedyInvalid() {
-        // setup
-        String newLocation = "foot";
-        String newRemedy = null;
-        String newDate = "2021-12-12";
-        // call
-        rem.editRemedy(newLocation, newRemedy, newDate);        // check
-        assertEquals(newLocation, rem.getLocation()); // stays the same
-        assertEquals(remedy, rem.getRemedy());
-        assertEquals(newDate, rem.getDate());
+    public void testGetDuration() {
+        assertEquals(-1, rem.getDuration());
     }
-
 
     @Test
-    public void editRemedyDateInvalid() {
-        // setup
-        String newLocation = "foot";
-        String newRemedy = "ache";
-        String newDate = null;
-        // call
-        rem.editRemedy(newLocation, newRemedy, newDate);
-        // check
-        assertEquals(newLocation, rem.getLocation()); // stays the same
-        assertEquals(newRemedy, rem.getRemedy());
-        assertEquals(date, rem.getDate());
+    public void testGetScore() {
+        assertEquals(-1, rem.getScore());
     }
-
-     */
 }
