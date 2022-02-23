@@ -379,9 +379,9 @@ public class SymmerApp {
 
             }
 
-            System.out.println("If you do not wish to change the current sensation, " + oldRemedy + ", input 'n/a'. "
-                    + "Otherwise, choose a new sensation from the following list: ");
-            printSensations();
+            System.out.println("If you do not wish to change the current remedy, " + oldRemedy + ", input 'n/a'. "
+                    + "Otherwise, choose a new remedy from the following list: ");
+            printRemedies();
             choice = input.next().toLowerCase();
             if (choice.equals("n/a")) {
                 newRemedy = null;

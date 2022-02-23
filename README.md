@@ -42,3 +42,11 @@ Editing Logs:
 Deleting Logs:
 - As a user, I want to be able to delete a symptom log
 - As a user, I want to be able to delete a remedy log
+
+Saving Logs:
+- As a user, I want to be able to save my symptom logs
+- As a user, I want to be able to save my remedy logs
+
+Loading Logs:
+- As a user, I want to have the option to reload previously saved symptom logs
+- As a user, I want to have the option to reload previously saved remedy logs
