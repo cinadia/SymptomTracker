@@ -12,9 +12,9 @@ import persistence.Writable;
 /**
  * Representation of log history, with a symptom and remedy log
  */
+// TODO: change testReaderEmpty/GeneralSymptomLog.json to include remedy log too
 public class LogHistory implements Writable {
     protected String name;
-    //protected List<Log> history;
     protected Log symLog;
     protected Log remLog;
 
@@ -68,7 +68,6 @@ public class LogHistory implements Writable {
     protected JSONArray logsToJson(Log log) {
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(log.toJson());
-        //jsonArray.put(rLog.toJson());
 
 //        for (Log l : history) {
 //            for (Entry e : l.getLog()) {

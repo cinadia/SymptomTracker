@@ -1,5 +1,5 @@
 {
-  "symptom logs": [
+  "symptom log": [
     { "location": "knee",
       "sensation": "sharp",
       "severity": "4",
@@ -16,7 +16,7 @@
       "date": "2021-01-01"
     }
   ],
-  "remedy logs": [
+  "remedy log": [
     { "location": "knee",
       "remedy": "ice",
       "date": "2022-02-02"

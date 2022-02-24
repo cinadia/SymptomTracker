@@ -1,5 +1,6 @@
 package persistence;
 
+import model.LogHistory;
 import model.logs.Log;
 
 import java.io.FileNotFoundException;
@@ -22,8 +23,8 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of Log to file
-    public void write(Log l) {
+    // EFFECTS: writes JSON representation of LogHistory to file
+    public void write(LogHistory lh) {
         //JSONObject json = wr.toJson();
         //saveToFile(json.toString(TAB));
     }
