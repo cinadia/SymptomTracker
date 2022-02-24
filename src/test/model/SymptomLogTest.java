@@ -1,5 +1,7 @@
 package model;
 
+import model.entries.Symptom;
+import model.logs.SymptomLog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

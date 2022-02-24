@@ -1,0 +1,31 @@
+{
+  "symptom logs": [
+    { "location": "knee",
+      "sensation": "sharp",
+      "severity": "4",
+      "duration": "20",
+      "score": "80",
+      "date": "2022-02-02"
+    },
+
+    { "location": "stomach",
+      "sensation": "ache",
+      "severity": "3",
+      "duration": "10",
+      "score": "30",
+      "date": "2021-01-01"
+    }
+  ],
+  "remedy logs": [
+    { "location": "knee",
+      "remedy": "ice",
+      "date": "2022-02-02"
+    },
+
+    { "location": "stomach",
+      "remedy": "painkillers",
+      "date": "2021-01-01"
+    }
+  ],
+  "name": "Name's log history"
+}

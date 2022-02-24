@@ -1,9 +1,12 @@
 package ui;
 
-import model.*;
+import model.entries.Entry;
+import model.entries.Remedy;
+import model.entries.Symptom;
+import model.logs.RemedyLog;
+import model.logs.SymptomLog;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 /**

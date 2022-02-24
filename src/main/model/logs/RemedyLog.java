@@ -1,6 +1,8 @@
-package model;
+package model.logs;
 
-import java.util.ArrayList;
+import model.entries.Entry;
+import model.entries.Remedy;
+import org.json.JSONObject;
 
 /**
  * A collection of Remedies added by the user
@@ -8,10 +10,10 @@ import java.util.ArrayList;
 public class RemedyLog extends Log {
 
     // EFFECTS: Creates an empty collection of Remedies (a log)
-    public RemedyLog() {
-        log  = new ArrayList<Entry>();
-
-    }
+//    public RemedyLog() {
+//        log  = new ArrayList<Entry>();
+//
+//    }
 
     // REQUIRES: index >= 0
     // MODIFIES: this
@@ -48,5 +50,12 @@ public class RemedyLog extends Log {
 
         log.set(index, new Remedy(finalLocation, finalRemedy, finalDate));
 
+    }
+
+    @Override
+    // TODO
+    // EFFECTS: returns this RemedyLog as JSON object
+    public JSONObject toJson() {
+        return null;
     }
 }

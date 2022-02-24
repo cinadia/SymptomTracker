@@ -1,6 +1,8 @@
-package model;
+package model.logs;
 
-import java.util.ArrayList;
+import model.entries.Entry;
+import model.entries.Symptom;
+import org.json.JSONObject;
 
 /**
  * A collection of Symptoms added by the user
@@ -10,9 +12,9 @@ import java.util.ArrayList;
 public class SymptomLog extends Log {
 
     // EFFECTS: Creates an empty collection of Symptoms (a log)
-    public SymptomLog() {
-        log = new ArrayList<Entry>();
-    }
+//    public SymptomLog() {
+//        log = new ArrayList<Entry>();
+//    }
 
     // REQUIRES: index >= 0
     // MODIFIES: this
@@ -67,5 +69,12 @@ public class SymptomLog extends Log {
             finalDate = date;
         }
         log.set(index, new Symptom(finalLocation, finalSensation, finalSeverity, finalDuration, finalDate));
+    }
+
+    @Override
+    // TODO
+    // EFFECTS: returns this SymptomLog as JSON object
+    public JSONObject toJson() {
+        return null;
     }
 }

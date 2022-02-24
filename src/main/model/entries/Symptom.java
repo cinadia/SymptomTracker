@@ -1,5 +1,8 @@
-package model;
+package model.entries;
 
+
+import model.entries.Entry;
+import org.json.JSONObject;
 
 /**
  * A Symptom
@@ -23,6 +26,20 @@ public class Symptom extends Entry {
         this.score = severity * duration;
     }
 
+    @Override
+    // EFFECTS: returns this Symptom as JSON object
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("location", location);
+        json.put("sensation", sensation);
+        json.put("severity", severity);
+        json.put("duration", duration);
+        json.put("score", score);
+        json.put("date", date);
+
+        return json;
+    }
+
     public String getSensation() {
         return this.sensation;
     }
@@ -42,7 +59,5 @@ public class Symptom extends Entry {
     public String getRemedy() {
         return null;
     }
-
-
 
 }

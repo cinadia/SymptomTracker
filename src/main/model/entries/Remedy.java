@@ -1,4 +1,7 @@
-package model;
+package model.entries;
+
+import model.entries.Entry;
+import org.json.JSONObject;
 
 /**
  * A Remedy
@@ -13,6 +16,17 @@ public class Remedy extends Entry {
         this.location = location;
         this.remedy = remedy;
         this.date = date;
+    }
+
+    @Override
+    // EFFECTS: returns this Remedy as JSON object
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("location", location);
+        json.put("remedy", remedy);
+        json.put("date", date);
+
+        return json;
     }
 
     @Override
@@ -39,5 +53,6 @@ public class Remedy extends Entry {
     public int getScore() {
         return -1;
     }
+
 
 }

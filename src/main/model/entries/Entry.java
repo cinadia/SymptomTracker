@@ -1,9 +1,12 @@
-package model;
+package model.entries;
+
+import org.json.JSONObject;
+import persistence.Writable;
 
 /**
  * Represents an entry in a log.
  */
-public abstract class Entry {
+public abstract class Entry implements Writable {
 
     protected String location;
     protected String date;
@@ -25,4 +28,7 @@ public abstract class Entry {
     public abstract String getRemedy();
 
     public abstract int getScore();
+
+    // EFFECTS: returns this Entry as JSON object
+    public abstract JSONObject toJson();
 }
