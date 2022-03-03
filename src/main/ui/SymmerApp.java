@@ -1,11 +1,16 @@
 package ui;
 
+import model.LogHistory;
 import model.entries.Entry;
 import model.entries.Remedy;
 import model.entries.Symptom;
 import model.logs.RemedyLog;
 import model.logs.SymptomLog;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,9 +18,18 @@ import java.util.Scanner;
  * Symmer symptom tracker application
  */
 public class SymmerApp {
+    private static final String JSON_STORE = "./data/loghistory.json";
+
     private SymptomLog symLog;
     private RemedyLog remLog;
     private Scanner input;
+
+    private LogHistory lh;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
+
+    // TODO: change these to enum?
     private static final String DATE_FORMAT = "YYYY-MM-DD";
     private static final ArrayList<String> LOCATIONS = new ArrayList<String>() {
         {
@@ -100,7 +114,9 @@ public class SymmerApp {
 
     // EFFECTS: runs the Symmer application
     public SymmerApp() {
+        init();
         runSymmer();
+
     }
 
     // MODIFIES: this
@@ -108,8 +124,6 @@ public class SymmerApp {
     private void runSymmer() {
         boolean keepGoing = true;
         String command = null;
-
-        init();
 
         while (keepGoing) {
             displayMenu();
@@ -122,7 +136,7 @@ public class SymmerApp {
                 processCommand(command);
             }
         }
-
+        saveLogHistory();
         System.out.println("\nGoodbye!");
     }
 
@@ -133,12 +147,17 @@ public class SymmerApp {
         symLog = new SymptomLog();
         remLog = new RemedyLog();
         input = new Scanner(System.in);
+        //lh = new LogHistory("Your Log History");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         input.useDelimiter("\n");
     }
 
     // EFFECTS: displays menu options to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
+        System.out.println("\tload -> log history from file");
+
         System.out.println("\tadd sym -> add symptom entry");
         System.out.println("\tadd rem -> add remedy entry");
 
@@ -150,18 +169,23 @@ public class SymmerApp {
 
         System.out.println("\tview all sym -> view all symptom logs");
         System.out.println("\tview all rem -> view remedy logs");
+        System.out.println("\tview all logs -> view remedy and symptom logs");
 
         System.out.println("\tview sym date -> view symptom logs on a certain date");
         System.out.println("\tview rem date -> view remedy logs on a certain date");
 
+        System.out.println("\tsave -> save (program will also automatically save upon exit)");
         System.out.println("\tq -> quit");
 
     }
 
     // MODIFIES: this
     // EFFECTS: process user command
+    @SuppressWarnings("methodlength")
     private void processCommand(String command) {
-        if (command.equals("add sym")) {
+        if (command.equals("load")) {
+            loadLogHistory();
+        } else if (command.equals("add sym")) {
             addEntry(true);
         } else if (command.equals("add rem")) {
             addEntry(false);
@@ -177,10 +201,14 @@ public class SymmerApp {
             viewAllLogs(true);
         } else if (command.equals("view all rem")) {
             viewAllLogs(false);
+        } else if (command.equals("view all logs")) {
+            printLogHistory();
         } else if (command.equals("view sym date")) {
             viewLogOnDate(true);
         } else if (command.equals("view rem date")) {
             viewLogOnDate(false);
+        } else if (command.equals("save")) {
+            saveLogHistory();
         } else {
             System.out.println("Selection is not valid.");
         }
@@ -559,6 +587,39 @@ public class SymmerApp {
     private void printRemedies() {
         for (String r : REMEDIES) {
             System.out.println(r);
+        }
+    }
+
+    // EFFECTS: prints the entire log history
+    private void printLogHistory() {
+        System.out.println("~~~~~SHOWING LOG HISTORY~~~~~~");
+        viewAllLogs(true);
+        viewAllLogs(false);
+    }
+
+    // EFFECTS: saves the current logs to file
+    private void saveLogHistory() {
+        lh = new LogHistory("Your Log History", symLog, remLog);
+        try {
+            jsonWriter.open();
+            jsonWriter.write(lh);
+            jsonWriter.close();
+            System.out.println("Saved " + lh.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads log history from file
+    private void loadLogHistory() {
+        try {
+            lh = jsonReader.read();
+            symLog = (SymptomLog) lh.getSymptomLogs();
+            remLog = (RemedyLog) lh.getRemedyLogs();
+            System.out.println("Loaded " + lh.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 

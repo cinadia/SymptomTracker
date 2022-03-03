@@ -29,9 +29,18 @@ public class LogHistory implements Writable {
     public LogHistory(String name) {
         super();
         this.name = name;
-        symLog = new SymptomLog();
-        remLog = new RemedyLog();
+        this.symLog = new SymptomLog();
+        this.remLog = new RemedyLog();
     }
+
+    // EFFECTS: constructs LogHistory with a name and given symptom and remedy logs
+    public LogHistory(String name, Log symLog, Log remLog) {
+        super();
+        this.name = name;
+        this.symLog = symLog;
+        this.remLog = remLog;
+    }
+
 
     // MODIFIES: this
     // EFFECTS: adds new entry to the symptom log in this log history
