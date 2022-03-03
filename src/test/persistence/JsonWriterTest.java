@@ -52,9 +52,11 @@ public class JsonWriterTest {
             LogHistory lh = new LogHistory("NEW log history");
             lh.addSymptom(new Symptom("hand", "stinging", 5, 4, "2022-02-02"));
             lh.addSymptom(new Symptom("toe", "numb", 3, 2, "2022-01-01"));
+
             lh.addRemedy(new Remedy("arm", "acupuncture", "2020-01-01"));
             lh.addRemedy(new Remedy("toe", "ice", "2020-02-02"));
 
+            //System.out.println(lh.getSymptomLogs().getLog().get(0).getLocation());
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralLogHistory.json");
             writer.open();
             writer.write(lh);
@@ -83,9 +85,9 @@ public class JsonWriterTest {
             assertEquals("3", Integer.valueOf(symE2.getSeverity()).toString());
             assertEquals("2", Integer.valueOf(symE2.getDuration()).toString());
             assertEquals("6", Integer.valueOf(symE2.getScore()).toString());
-            assertEquals("2021-01-01", symE2.getDate());
+            assertEquals("2022-01-01", symE2.getDate());
 
-            Log rLog = lh.getSymptomLogs();
+            Log rLog = lh.getRemedyLogs();
             assertEquals(2, rLog.getLog().size());
 
             Entry remE1 = rLog.getLog().get(0);
@@ -93,11 +95,11 @@ public class JsonWriterTest {
 
             assertEquals("arm", remE1.getLocation());
             assertEquals("acupuncture", remE1.getRemedy());
-            assertEquals("2021-01-01", remE1.getDate());
+            assertEquals("2020-01-01", remE1.getDate());
 
             assertEquals("toe", remE2.getLocation());
             assertEquals("ice", remE2.getRemedy());
-            assertEquals("2022-02-02", remE2.getDate());
+            assertEquals("2020-02-02", remE2.getDate());
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");

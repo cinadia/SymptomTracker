@@ -32,9 +32,9 @@ public class Symptom extends Entry {
         JSONObject json = new JSONObject();
         json.put("location", location);
         json.put("sensation", sensation);
-        json.put("severity", severity);
-        json.put("duration", duration);
-        json.put("score", score);
+        json.put("severity", Integer.valueOf(severity).toString());
+        json.put("duration", Integer.valueOf(duration).toString());
+        json.put("score", Integer.valueOf(score).toString());
         json.put("date", date);
 
         return json;

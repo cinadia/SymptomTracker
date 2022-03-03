@@ -53,9 +53,10 @@ public class RemedyLog extends Log {
     }
 
     @Override
-    // TODO
     // EFFECTS: returns this RemedyLog as JSON object
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("remedy log", entriesToJson());
+        return json;
     }
 }

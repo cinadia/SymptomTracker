@@ -18,15 +18,16 @@ public class LogHistory implements Writable {
     protected Log symLog;
     protected Log remLog;
 
-    // default constructor
-    // TODO: why do I need default constructor? isn't it automatically provided?
-    public LogHistory() {
-        symLog = new SymptomLog();
-        remLog = new RemedyLog();
-    }
+//    // default constructor
+//    // TODO: remove
+//    public LogHistory() {
+//        symLog = new SymptomLog();
+//        remLog = new RemedyLog();
+//    }
 
     // EFFECTS: constructs LogHistory with a name and an empty symptom and remedy log
     public LogHistory(String name) {
+        super();
         this.name = name;
         symLog = new SymptomLog();
         remLog = new RemedyLog();
@@ -66,8 +67,11 @@ public class LogHistory implements Writable {
 
     // EFFECTS: returns specified log in this log history as a JSON array
     protected JSONArray logsToJson(Log log) {
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.put(log.toJson());
+//        JSONArray jsonArray = new JSONArray();
+//        //jsonArray.put(log.toJson());
+//        jsonArray.put(log.entriesToJson());
+
+        JSONArray jsonArray = log.entriesToJson();
 
 //        for (Log l : history) {
 //            for (Entry e : l.getLog()) {

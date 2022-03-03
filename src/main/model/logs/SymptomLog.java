@@ -72,9 +72,10 @@ public class SymptomLog extends Log {
     }
 
     @Override
-    // TODO
     // EFFECTS: returns this SymptomLog as JSON object
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("symptom log", entriesToJson());
+        return json;
     }
 }

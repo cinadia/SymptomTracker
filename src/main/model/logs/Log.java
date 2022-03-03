@@ -45,14 +45,15 @@ public abstract class Log implements Writable {
 
     @Override
     // TODO: move to individual log classes and make abstract
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("symptom log", entriesToJson());
-        return json;
-    }
+    public abstract JSONObject toJson();
+//    {
+//        JSONObject json = new JSONObject();
+//        json.put("symptom log", entriesToJson());
+//        return json;
+//    }
 
     // EFFECTS: returns entries in this log as a JSON array
-    private JSONArray entriesToJson() {
+    public JSONArray entriesToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (Entry e : log) {
