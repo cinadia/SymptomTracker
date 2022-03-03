@@ -10,6 +10,8 @@ import java.io.PrintWriter;
 
 /**
  * Represents a writer that writes JSON representation of Log to file
+ *  Methods adapted from JsonWriter class in
+ *  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 public class JsonWriter {
     private static final int TAB = 4;

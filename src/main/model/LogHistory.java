@@ -18,13 +18,6 @@ public class LogHistory implements Writable {
     protected Log symLog;
     protected Log remLog;
 
-//    // default constructor
-//    // TODO: remove
-//    public LogHistory() {
-//        symLog = new SymptomLog();
-//        remLog = new RemedyLog();
-//    }
-
     // EFFECTS: constructs LogHistory with a name and an empty symptom and remedy log
     public LogHistory(String name) {
         super();
@@ -40,7 +33,6 @@ public class LogHistory implements Writable {
         this.symLog = symLog;
         this.remLog = remLog;
     }
-
 
     // MODIFIES: this
     // EFFECTS: adds new entry to the symptom log in this log history
@@ -65,30 +57,18 @@ public class LogHistory implements Writable {
     }
 
     @Override
+    // EFFECTS: return this as JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("symptom log", logsToJson(symLog));
         json.put("remedy log", logsToJson(remLog));
         return json;
-
     }
 
-    // EFFECTS: returns specified log in this log history as a JSON array
+    // EFFECTS: returns specified log in this log history as a JSON array of its entries
     protected JSONArray logsToJson(Log log) {
-//        JSONArray jsonArray = new JSONArray();
-//        //jsonArray.put(log.toJson());
-//        jsonArray.put(log.entriesToJson());
-
         JSONArray jsonArray = log.entriesToJson();
-
-//        for (Log l : history) {
-//            for (Entry e : l.getLog()) {
-//                jsonArray.put(t.toJson());
-//            }
-//
-//        }
-
         return jsonArray;
     }
 
@@ -102,6 +82,7 @@ public class LogHistory implements Writable {
         return remLog.getLog().size();
     }
 
+    // EFFECTS: returns name of this log history
     public String getName() {
         return name;
     }

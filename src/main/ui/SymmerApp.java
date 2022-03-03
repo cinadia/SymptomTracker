@@ -28,7 +28,6 @@ public class SymmerApp {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-
     // TODO: change these to enum?
     private static final String DATE_FORMAT = "YYYY-MM-DD";
     private static final ArrayList<String> LOCATIONS = new ArrayList<String>() {
@@ -108,9 +107,6 @@ public class SymmerApp {
             add("surgery or medical procedure");
         }
     };
-
-
-
 
     // EFFECTS: runs the Symmer application
     public SymmerApp() {
@@ -597,6 +593,9 @@ public class SymmerApp {
         viewAllLogs(false);
     }
 
+    // Adapted from WorkRoomApp class in
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // MODIFIES: this
     // EFFECTS: saves the current logs to file
     private void saveLogHistory() {
         lh = new LogHistory("Your Log History", symLog, remLog);
@@ -610,6 +609,8 @@ public class SymmerApp {
         }
     }
 
+    // Adapted from WorkRoomApp class in
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: loads log history from file
     private void loadLogHistory() {

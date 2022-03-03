@@ -15,6 +15,9 @@ import java.util.stream.Stream;
 
 /**
  * Represents a reader that reads LogHistory from JSON data stored in file
+ * Methods adapted from JsonReader class in
+ * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+ * unless stated otherwise
  */
 public class JsonReader {
     private String source;
@@ -52,6 +55,7 @@ public class JsonReader {
         return lh;
     }
 
+    // Original Method
     // MODIFIES: lh
     // EFFECTS: parses symptom log from JSON object and adds them to log history
     private void addSymptomLog(LogHistory lh, JSONObject jsonObject) {
@@ -62,6 +66,7 @@ public class JsonReader {
         }
     }
 
+    // Original Method
     // MODIFIES: lh
     // EFFECTS: parses remedy log from JSON object and adds them to log history
     private void addRemedyLog(LogHistory lh, JSONObject jsonObject) {
@@ -72,6 +77,7 @@ public class JsonReader {
         }
     }
 
+    // Original Method
     // MODIFIES: lh
     // EFFECTS: parses symptom entry from JSON object and adds it to workroom
     private void addSymptomEntry(LogHistory lh, JSONObject jsonObject) {
@@ -83,6 +89,7 @@ public class JsonReader {
         lh.getSymptomLogs().add(new Symptom(location, sensation, severity, duration, date));
     }
 
+    // Original Method
     // MODIFIES: lh
     // EFFECTS: parses remedy entry from JSON object and adds it to workroom
     private void addRemedyEntry(LogHistory lh, JSONObject jsonObject) {

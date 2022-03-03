@@ -44,13 +44,8 @@ public abstract class Log implements Writable {
     }
 
     @Override
-    // TODO: move to individual log classes and make abstract
+    // EFFECTS: returns this RemedyLog as JSON object
     public abstract JSONObject toJson();
-//    {
-//        JSONObject json = new JSONObject();
-//        json.put("symptom log", entriesToJson());
-//        return json;
-//    }
 
     // EFFECTS: returns entries in this log as a JSON array
     public JSONArray entriesToJson() {

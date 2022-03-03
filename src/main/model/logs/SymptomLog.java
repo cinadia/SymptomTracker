@@ -11,11 +11,6 @@ import org.json.JSONObject;
 // TODO: change to abstract class!
 public class SymptomLog extends Log {
 
-    // EFFECTS: Creates an empty collection of Symptoms (a log)
-//    public SymptomLog() {
-//        log = new ArrayList<Entry>();
-//    }
-
     // REQUIRES: index >= 0
     // MODIFIES: this
     // EFFECTS: replaces the Symptom at the given index in this log with sym
