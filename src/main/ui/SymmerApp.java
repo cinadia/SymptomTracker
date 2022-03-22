@@ -9,10 +9,23 @@ import model.logs.SymptomLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Vector;
+import com.toedter.calendar.JDateChooser;
+
+
 
 /**
  * Symmer symptom tracker application
@@ -27,6 +40,12 @@ public class SymmerApp {
     private LogHistory lh;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+
+    String newDate;
+    String newLocation;
+    String newSensation;
+    int newDuration;
+    int newSeverity;
 
     // TODO: change these to enum?
     private static final String DATE_FORMAT = "YYYY-MM-DD";
@@ -110,10 +129,406 @@ public class SymmerApp {
 
     // EFFECTS: runs the Symmer application
     public SymmerApp() {
-        init();
-        runSymmer();
+        symLog = new SymptomLog();
+        remLog = new RemedyLog();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        homePage();
+
+        // For Console Only:
+        //init();
+        //runSymmer();
 
     }
+
+    @SuppressWarnings("methodlength")
+    private void homePage() {
+        // initialize frame
+        JFrame frame = new JFrame("Home");
+
+        // initialize panel
+        JPanel panel = new JPanel();
+
+        // add icon
+        BufferedImage icon = null;
+        try {
+            icon = ImageIO.read(new File("images/cat.jpg"));
+        } catch (IOException e) {
+            System.out.println("Image not found");
+        }
+        JLabel iconLabel = new JLabel(new ImageIcon(icon));
+        panel.add(iconLabel);
+
+        // add View Logs button
+        JButton btnViewLogs = new JButton("View Logs");
+        btnViewLogs.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Viewing logs");
+                showAllLogsGUI();
+            }
+        });
+        panel.add(btnViewLogs);
+
+        // add the Add Logs button
+        JButton btnAddLogs = new JButton("Add Logs");
+        btnAddLogs.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Adding logs");
+                addLogsGUI();
+            }
+        });
+        panel.add(btnAddLogs);
+
+        // add Save button
+        JButton btnSave = new JButton("Save");
+        btnSave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO saveLogs();
+            }
+        });
+        panel.add(btnSave);
+
+        // add Load from File button
+        JButton btnLoad = new JButton("Load From File");
+        btnLoad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO loadLogs();
+            }
+        });
+        panel.add(btnLoad);
+
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        // TODO: center align
+        // panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        frame.add(panel);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(400, 400));
+        frame.pack();
+    }
+
+    private void showAllLogsGUI() {
+        // initialize frame
+        JFrame frame = new JFrame("Showing All Logs");
+
+        // initialize panel
+        JPanel panel = viewAllLogsToString();
+
+
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        frame.add(panel);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(400, 400));
+        frame.pack();
+    }
+
+    private void addLogsGUI() {
+        JFrame frame = new JFrame();
+
+        Object[] options = {"Symptom Log", "Remedy Log"};
+
+        int value = JOptionPane.showOptionDialog(frame,
+                "Which log would you like to add to?",
+                "Choose an option",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[1]);
+
+        if (value == JOptionPane.YES_OPTION) {
+            addSymptomLogGUI();
+            System.out.println("Adding a symptom log");
+        } else if (value == JOptionPane.NO_OPTION) {
+            addRemedyLog();
+            System.out.println("Adding a remedy log");
+        }
+    }
+
+    @SuppressWarnings("methodlength")
+    private void addSymptomLogGUI() {
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.getContentPane().setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        // add labels
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        JLabel lblDate = new JLabel("Date");
+        frame.getContentPane().add(lblDate, c);
+
+        c.gridx = 0;
+        c.gridy = 1;
+        JLabel lblLocation = new JLabel("Location");
+        frame.getContentPane().add(lblLocation, c);
+
+        c.gridx = 0;
+        c.gridy = 2;
+        JLabel lblSensation = new JLabel("Sensation");
+        frame.getContentPane().add(lblSensation, c);
+
+        c.gridx = 0;
+        c.gridy = 3;
+        JLabel lblDuration = new JLabel("Duration (press enter)");
+        frame.getContentPane().add(lblDuration, c);
+
+        c.gridx = 0;
+        c.gridy = 4;
+        JLabel lblSeverity = new JLabel("Severity");
+        frame.getContentPane().add(lblSeverity, c);
+
+        // add other elements
+
+        // date picker
+        c.gridx = 1;
+        c.gridy = 0;
+        JDateChooser dateChooser = new JDateChooser();
+        dateChooser.getDateEditor().addPropertyChangeListener(
+                new PropertyChangeListener() {
+                    public void propertyChange(PropertyChangeEvent e) {
+                        if ("date".equals(e.getPropertyName())) {
+                            java.util.Date utilDate = (java.util.Date) e.getNewValue();
+                            newDate = utilDate.toString();
+                        }
+                    }
+                });
+        frame.getContentPane().add(dateChooser, c);
+        frame.setVisible(true);
+
+
+        // location dropdown selection
+        c.gridx = 1;
+        c.gridy = 1;
+
+        JComboBox cbLocation = new JComboBox(getLocations());
+        cbLocation.setSelectedItem(null);
+        cbLocation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                // get selected String and set location
+                JComboBox cb = (JComboBox)arg0.getSource();
+                newLocation = (String)cb.getSelectedItem();
+            }
+        });
+        frame.getContentPane().add(cbLocation, c);
+
+        // sensation dropdown selection
+        c.gridx = 1;
+        c.gridy = 2;
+        JComboBox cbSensation = new JComboBox(getSensations());
+        cbSensation.setSelectedItem(null);
+        cbSensation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                // get selected String and set sensation
+                JComboBox cb = (JComboBox)arg0.getSource();
+                newSensation = (String)cb.getSelectedItem();
+            }
+        });
+        frame.getContentPane().add(cbSensation, c);
+
+        // duration text box
+        c.gridx = 1;
+        c.gridy = 3;
+        JTextField txtDuration = new JTextField();
+        txtDuration.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                String text = txtDuration.getText();
+
+                try {
+                    Integer dur = Integer.parseInt(text);
+                    if (dur < 0) {
+                        JOptionPane.showMessageDialog(frame, "Whoops! Positive numbers only!");
+                    } else {
+                        newDuration = dur;
+                        System.out.println(newDuration);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(frame, "Whoops! Valid numbers only!");
+                }
+            }
+        });
+        frame.getContentPane().add(txtDuration, c);
+
+        // severity dropbox selection
+        c.gridx = 1;
+        c.gridy = 4;
+        JComboBox cbSeverity = new JComboBox(getSeverities());
+        cbSeverity.setSelectedItem(null);
+        cbSeverity.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                // get selected String and set severity
+                JComboBox cb = (JComboBox)arg0.getSource();
+                newSeverity = (Integer)cb.getSelectedItem();
+
+            }
+        });
+        frame.getContentPane().add(cbSeverity, c);
+
+        // save button
+        c.gridx = 0;
+        c.gridy = 5;
+        c.gridwidth = 2;
+        JButton saveBtn = new JButton("Save");
+        frame.getContentPane().add(saveBtn, c);
+        saveBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                symLog.add(new Symptom(newLocation, newSensation, newSeverity, newDuration, newDate));
+                JOptionPane.showMessageDialog(frame, "Saving the following new symptom:"
+                        + "\nDate: " + newDate
+                        + "\nLocation: " + newLocation
+                        + "\nSensation: " + newSensation
+                        + "\nSeverity: " + newSeverity
+                        + "\nDuration: " + newDuration);
+            }
+        });
+        frame.getContentPane().add(saveBtn, c);
+
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    private void addRemedyLog() {
+
+    }
+
+    // EFFECTS: returns this history log's entries as a JPanel
+    @SuppressWarnings("methodlength")
+    public JPanel viewAllLogsToString() {
+        JPanel panel = new JPanel();
+
+        JLabel symTitle = new JLabel("~~~~~SHOWING SYMPTOM LOG~~~~~~");
+        panel.add(symTitle);
+        if (symLog == null) {
+            JLabel label = new JLabel();
+            label.setText("No symptom logs");
+        } else {
+            for (int i = 0; i < symLog.getLog().size(); i++) {
+                Entry viewing = symLog.getLog().get(i);
+                int oneBasedIndex = i + 1;
+
+                JLabel label = new JLabel("");
+                JLabel indexLabel = new JLabel("--ENTRY " + oneBasedIndex + "--");
+                JLabel dateLabel = new JLabel("\tDate: " + viewing.getDate());
+                JLabel locationLabel = new JLabel("\tLocation: " + viewing.getLocation());
+                JLabel sensationLabel = new JLabel("\tSensation: " + viewing.getSensation());
+                JLabel severityLabel = new JLabel("\tSeverity: " + viewing.getSeverity());
+                JLabel durationLabel = new JLabel("\tDuration: " + viewing.getDuration());
+                JLabel scoreLabel = new JLabel("\tScore: " + viewing.getScore());
+
+                panel.add(label);
+                panel.add(indexLabel);
+                panel.add(dateLabel);
+                panel.add(locationLabel);
+                panel.add(sensationLabel);
+                panel.add(severityLabel);
+                panel.add(durationLabel);
+                panel.add(scoreLabel);
+
+
+            }
+        }
+
+        JLabel remTitle = new JLabel("~~~~~SHOWING REMEDY LOG~~~~~~");
+        JLabel rems = new JLabel();
+        // TODO: show remedies
+//
+//        if (remLog == null) {
+//            ret += "\n\tNo remedy logs";
+//        } else {
+//            for (int i = 0; i < remLog.getLog().size(); i++) {
+//                Entry viewing = remLog.getLog().get(i);
+//                int oneBasedIndex = i + 1;
+//                ret = ret + "--ENTRY " + oneBasedIndex + "--";
+//                ret = ret + "\tDate: " + viewing.getDate();
+//                ret = ret + "\tLocation: " + viewing.getLocation();
+//                ret = ret + "\tRemedy: " + viewing.getRemedy();
+//
+//            }
+//        }
+//
+//        return ret;
+
+//        panel.add(symTitle);
+//        panel.add(syms);
+//        panel.add(remTitle);
+//        panel.add(rems);
+//
+//        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+//
+        return panel;
+    }
+
+    // EFFECTS: returns a vector of locations
+    private Vector<String> getLocations() {
+        Vector<String> ret = new Vector<>();
+
+        for (String l : LOCATIONS) {
+            ret.add(l);
+        }
+        return ret;
+    }
+
+    // EFFECTS: returns a vector of possible severities
+    private Vector<Integer> getSeverities() {
+        Vector<Integer> ret = new Vector<>();
+        for (Integer i : SEVERITY) {
+            ret.add(i);
+        }
+        return ret;
+    }
+
+    // EFFECTS: returns a vector of sensations
+    private Vector<String> getSensations() {
+        Vector<String> ret = new Vector<>();
+
+        for (String s : SENSATIONS) {
+            ret.add(s);
+        }
+        return ret;
+    }
+
+    // Adapted from WorkRoomApp class in
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // MODIFIES: this
+    // EFFECTS: saves the current logs to file
+    private void saveLogHistory() {
+        lh = new LogHistory("Your Log History", symLog, remLog);
+        try {
+            jsonWriter.open();
+            jsonWriter.write(lh);
+            jsonWriter.close();
+            System.out.println("Saved " + lh.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // Adapted from WorkRoomApp class in
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // MODIFIES: this
+    // EFFECTS: loads log history from file
+    private void loadLogHistory() {
+        try {
+            lh = jsonReader.read();
+            symLog = (SymptomLog) lh.getSymptomLogs();
+            remLog = (RemedyLog) lh.getRemedyLogs();
+            System.out.println("Loaded " + lh.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+
+
+
+
+
+
+    // The following methods are not included in GUI phase 3
 
     // MODIFIES: this
     // EFFECTS: processes user input
@@ -555,7 +970,6 @@ public class SymmerApp {
         }
     }
 
-
     // EFFECTS: prints the list of locations
     private void printLocations() {
         for (String l : LOCATIONS) {
@@ -593,35 +1007,6 @@ public class SymmerApp {
         viewAllLogs(false);
     }
 
-    // Adapted from WorkRoomApp class in
-    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-    // MODIFIES: this
-    // EFFECTS: saves the current logs to file
-    private void saveLogHistory() {
-        lh = new LogHistory("Your Log History", symLog, remLog);
-        try {
-            jsonWriter.open();
-            jsonWriter.write(lh);
-            jsonWriter.close();
-            System.out.println("Saved " + lh.getName() + " to " + JSON_STORE);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
-        }
-    }
 
-    // Adapted from WorkRoomApp class in
-    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-    // MODIFIES: this
-    // EFFECTS: loads log history from file
-    private void loadLogHistory() {
-        try {
-            lh = jsonReader.read();
-            symLog = (SymptomLog) lh.getSymptomLogs();
-            remLog = (RemedyLog) lh.getRemedyLogs();
-            System.out.println("Loaded " + lh.getName() + " from " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
-        }
-    }
 
 }

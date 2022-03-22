@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class Log implements Writable {
 
-    protected ArrayList<Entry> log;
+    protected List<Entry> log;
 
     // EFFECTS: Creates an empty collection of Entries with no name
     public Log() {
