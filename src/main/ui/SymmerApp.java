@@ -160,12 +160,17 @@ public class SymmerApp {
         c.gridy = 0;
         BufferedImage icon = null;
         try {
-            icon = ImageIO.read(new File("images/cat.jpg"));
+            icon = ImageIO.read(new File("images/symmer-icon.png"));
+
+            Image resultingImage = icon.getScaledInstance(400, 300, Image.SCALE_DEFAULT);
+
+            JLabel iconLabel = new JLabel(new ImageIcon(resultingImage));
+            panel.add(iconLabel, c);
+
         } catch (IOException e) {
             System.out.println("Image not found");
         }
-        JLabel iconLabel = new JLabel(new ImageIcon(icon));
-        panel.add(iconLabel, c);
+
 
         // add View Logs button
         c.gridx = 0;
