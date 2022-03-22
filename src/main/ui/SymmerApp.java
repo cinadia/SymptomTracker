@@ -142,6 +142,7 @@ public class SymmerApp {
 
     }
 
+    // EFFECTS: displays the Symmer home screen
     @SuppressWarnings("methodlength")
     private void homePage() {
         // initialize frame
@@ -221,7 +222,7 @@ public class SymmerApp {
 
     }
 
-    // TODO: add method specifications
+    // EFFECTS: displays all logs
     private void showAllLogsGUI() {
         // initialize frame
         JFrame frame = new JFrame("Showing All Logs");
@@ -247,6 +248,8 @@ public class SymmerApp {
         frame.setLocationRelativeTo(null);
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays option to edit either symptom or remedy logs
     private void addLogsGUI() {
         JFrame frame = new JFrame();
         frame.setPreferredSize(new Dimension(400, 400));
@@ -272,6 +275,8 @@ public class SymmerApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: GUI to add a remedy to this history log
     @SuppressWarnings("methodlength")
     private void addRemedyLogGUI() {
         JFrame frame = new JFrame();
@@ -370,6 +375,8 @@ public class SymmerApp {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    // MODIFIES: this
+    // EFFECTS: GUI to add a symptom to this history log
     @SuppressWarnings("methodlength")
     private void addSymptomLogGUI() {
         JFrame frame = new JFrame();
@@ -516,6 +523,8 @@ public class SymmerApp {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    // MODIFIES: this
+    // EFFECTS: saves this log on file
     private void saveLogs() {
         JFrame frame = new JFrame("Saving Logs");
 
@@ -530,6 +539,8 @@ public class SymmerApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads this log from the one on file
     private void loadLogs() {
         JFrame frame = new JFrame("Saving Logs");
 
@@ -635,6 +646,14 @@ public class SymmerApp {
         return ret;
     }
 
+
+
+
+
+    // -----------------------------------------------------------------
+
+    // The following methods are not included in GUI phase 3
+
     // Adapted from WorkRoomApp class in
     // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // MODIFIES: this
@@ -665,14 +684,6 @@ public class SymmerApp {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
-
-
-
-
-
-
-
-    // The following methods are not included in GUI phase 3
 
     // MODIFIES: this
     // EFFECTS: processes user input
@@ -932,7 +943,6 @@ public class SymmerApp {
 
             symLog.editLogByIndex(index, new Symptom(newLocation, newSensation, newSeverity, newDuration, newDate));
 
-            // TODO: add an assertion? would require editLogByIndex to return a success boolean
             System.out.println("Symptom entry edited and saved.");
         } else {
             String newLocation;
@@ -995,7 +1005,6 @@ public class SymmerApp {
 
             remLog.editLogByIndex(index, new Remedy(newLocation, newRemedy, newDate));
 
-            // TODO: add an assertion? would require editLogByIndex to return a success boolean
             System.out.println("Remedy entry edited and saved.");
         }
 

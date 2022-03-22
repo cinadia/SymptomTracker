@@ -7,8 +7,6 @@ import org.json.JSONObject;
 /**
  * A collection of Symptoms added by the user
  */
-// TODO: change date type
-// TODO: change to abstract class!
 public class SymptomLog extends Log {
 
     // REQUIRES: index >= 0

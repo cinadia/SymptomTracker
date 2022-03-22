@@ -12,7 +12,6 @@ import persistence.Writable;
 /**
  * Representation of log history, with a symptom and remedy log
  */
-// TODO: change testReaderEmpty/GeneralSymptomLog.json to include remedy log too
 public class LogHistory implements Writable {
     protected String name;
     protected Log symLog;
