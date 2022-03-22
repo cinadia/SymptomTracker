@@ -46,6 +46,7 @@ public class SymmerApp {
     String newSensation;
     int newDuration;
     int newSeverity;
+    String newRemedy;
 
     // TODO: change these to enum?
     private static final String DATE_FORMAT = "YYYY-MM-DD";
@@ -145,11 +146,17 @@ public class SymmerApp {
     private void homePage() {
         // initialize frame
         JFrame frame = new JFrame("Home");
+        frame.setSize(500, 500);
+        frame.setLocationRelativeTo(null);
 
         // initialize panel
         JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
         // add icon
+        c.gridx = 0;
+        c.gridy = 0;
         BufferedImage icon = null;
         try {
             icon = ImageIO.read(new File("images/cat.jpg"));
@@ -157,9 +164,11 @@ public class SymmerApp {
             System.out.println("Image not found");
         }
         JLabel iconLabel = new JLabel(new ImageIcon(icon));
-        panel.add(iconLabel);
+        panel.add(iconLabel, c);
 
         // add View Logs button
+        c.gridx = 0;
+        c.gridy = 1;
         JButton btnViewLogs = new JButton("View Logs");
         btnViewLogs.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -167,9 +176,11 @@ public class SymmerApp {
                 showAllLogsGUI();
             }
         });
-        panel.add(btnViewLogs);
+        panel.add(btnViewLogs, c);
 
         // add the Add Logs button
+        c.gridx = 0;
+        c.gridy = 2;
         JButton btnAddLogs = new JButton("Add Logs");
         btnAddLogs.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -177,37 +188,40 @@ public class SymmerApp {
                 addLogsGUI();
             }
         });
-        panel.add(btnAddLogs);
+        panel.add(btnAddLogs, c);
 
         // add Save button
+        c.gridx = 0;
+        c.gridy = 3;
         JButton btnSave = new JButton("Save");
+
         btnSave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO saveLogs();
+                saveLogs();
             }
         });
-        panel.add(btnSave);
+        panel.add(btnSave, c);
 
         // add Load from File button
+        c.gridx = 0;
+        c.gridy = 4;
         JButton btnLoad = new JButton("Load From File");
         btnLoad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO loadLogs();
+                loadLogs();
             }
         });
-        panel.add(btnLoad);
-
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        // TODO: center align
-        // panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(btnLoad, c);
 
         frame.add(panel);
+
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(400, 400));
         frame.pack();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
     }
 
+    // TODO: add method specifications
     private void showAllLogsGUI() {
         // initialize frame
         JFrame frame = new JFrame("Showing All Logs");
@@ -215,18 +229,28 @@ public class SymmerApp {
         // initialize panel
         JPanel panel = viewAllLogsToString();
 
-
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        frame.add(panel);
+        // add panel to scroll pane
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        // add scroll pane to frame
+        frame.add(scrollPane);
+
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(400, 400));
         frame.pack();
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        frame.setSize(400, 800);
+        frame.setLocationRelativeTo(null);
     }
 
     private void addLogsGUI() {
         JFrame frame = new JFrame();
+        frame.setPreferredSize(new Dimension(400, 400));
+        frame.setLocationRelativeTo(null);
 
         Object[] options = {"Symptom Log", "Remedy Log"};
 
@@ -243,15 +267,112 @@ public class SymmerApp {
             addSymptomLogGUI();
             System.out.println("Adding a symptom log");
         } else if (value == JOptionPane.NO_OPTION) {
-            addRemedyLog();
+            addRemedyLogGUI();
             System.out.println("Adding a remedy log");
         }
     }
 
     @SuppressWarnings("methodlength")
+    private void addRemedyLogGUI() {
+        JFrame frame = new JFrame();
+
+        frame.getContentPane().setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        // add labels
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        JLabel lblDate = new JLabel("Date");
+        frame.getContentPane().add(lblDate, c);
+
+        c.gridx = 0;
+        c.gridy = 1;
+        JLabel lblLocation = new JLabel("Location");
+        frame.getContentPane().add(lblLocation, c);
+
+        c.gridx = 0;
+        c.gridy = 2;
+        JLabel lblRemedy = new JLabel("Remedy");
+        frame.getContentPane().add(lblRemedy, c);
+
+
+        // add other elements
+
+        // date picker
+        c.gridx = 1;
+        c.gridy = 0;
+        JDateChooser dateChooser = new JDateChooser();
+        dateChooser.getDateEditor().addPropertyChangeListener(
+                new PropertyChangeListener() {
+                    public void propertyChange(PropertyChangeEvent e) {
+                        if ("date".equals(e.getPropertyName())) {
+                            java.util.Date utilDate = (java.util.Date) e.getNewValue();
+                            newDate = utilDate.toString();
+                        }
+                    }
+                });
+        frame.getContentPane().add(dateChooser, c);
+        frame.setVisible(true);
+
+
+        // location dropdown selection
+        c.gridx = 1;
+        c.gridy = 1;
+
+        JComboBox cbLocation = new JComboBox(getLocations());
+        cbLocation.setSelectedItem(null);
+        cbLocation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                // get selected String and set location
+                JComboBox cb = (JComboBox)arg0.getSource();
+                newLocation = (String)cb.getSelectedItem();
+            }
+        });
+        frame.getContentPane().add(cbLocation, c);
+
+        // remedy dropdown selection
+        c.gridx = 1;
+        c.gridy = 2;
+        JComboBox cbRemedies = new JComboBox(getRemedies());
+        cbRemedies.setSelectedItem(null);
+        cbRemedies.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                // get selected String and set sensation
+                JComboBox cb = (JComboBox)arg0.getSource();
+                newRemedy = (String)cb.getSelectedItem();
+            }
+        });
+        frame.getContentPane().add(cbRemedies, c);
+
+        // save button
+        c.gridx = 0;
+        c.gridy = 3;
+        c.gridwidth = 2;
+        JButton saveBtn = new JButton("Save");
+        frame.getContentPane().add(saveBtn, c);
+        saveBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                remLog.add(new Remedy(newLocation, newRemedy, newDate));
+                JOptionPane.showMessageDialog(frame, "Saving the following new remedy:"
+                        + "\nDate: " + newDate
+                        + "\nLocation: " + newLocation
+                        + "\nRemedy: " + newRemedy);
+            }
+        });
+        frame.getContentPane().add(saveBtn, c);
+
+        frame.pack();
+        frame.setVisible(true);
+
+        frame.setPreferredSize(new Dimension(1000, 1000));
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    @SuppressWarnings("methodlength")
     private void addSymptomLogGUI() {
         JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -389,10 +510,37 @@ public class SymmerApp {
 
         frame.pack();
         frame.setVisible(true);
+
+        frame.setPreferredSize(new Dimension(1000, 1000));
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
-    private void addRemedyLog() {
+    private void saveLogs() {
+        JFrame frame = new JFrame("Saving Logs");
 
+        lh = new LogHistory("Your Log History", symLog, remLog);
+        try {
+            jsonWriter.open();
+            jsonWriter.write(lh);
+            jsonWriter.close();
+            JOptionPane.showMessageDialog(frame, "Logs saved.");
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(frame, "Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    private void loadLogs() {
+        JFrame frame = new JFrame("Saving Logs");
+
+        try {
+            lh = jsonReader.read();
+            symLog = (SymptomLog) lh.getSymptomLogs();
+            remLog = (RemedyLog) lh.getRemedyLogs();
+            JOptionPane.showMessageDialog(frame, "Loaded " + lh.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(frame, "Unable to write to file: " + JSON_STORE);
+        }
     }
 
     // EFFECTS: returns this history log's entries as a JPanel
@@ -400,65 +548,52 @@ public class SymmerApp {
     public JPanel viewAllLogsToString() {
         JPanel panel = new JPanel();
 
+        // add symptoms
         JLabel symTitle = new JLabel("~~~~~SHOWING SYMPTOM LOG~~~~~~");
         panel.add(symTitle);
-        if (symLog == null) {
-            JLabel label = new JLabel();
-            label.setText("No symptom logs");
-        } else {
-            for (int i = 0; i < symLog.getLog().size(); i++) {
-                Entry viewing = symLog.getLog().get(i);
-                int oneBasedIndex = i + 1;
+        for (int i = 0; i < symLog.getLog().size(); i++) {
+            Entry viewing = symLog.getLog().get(i);
+            int oneBasedIndex = i + 1;
 
-                JLabel label = new JLabel("");
-                JLabel indexLabel = new JLabel("--ENTRY " + oneBasedIndex + "--");
-                JLabel dateLabel = new JLabel("\tDate: " + viewing.getDate());
-                JLabel locationLabel = new JLabel("\tLocation: " + viewing.getLocation());
-                JLabel sensationLabel = new JLabel("\tSensation: " + viewing.getSensation());
-                JLabel severityLabel = new JLabel("\tSeverity: " + viewing.getSeverity());
-                JLabel durationLabel = new JLabel("\tDuration: " + viewing.getDuration());
-                JLabel scoreLabel = new JLabel("\tScore: " + viewing.getScore());
+            JLabel label = new JLabel("");
+            JLabel indexLabel = new JLabel("--ENTRY " + oneBasedIndex + "--");
+            JLabel dateLabel = new JLabel("\tDate: " + viewing.getDate());
+            JLabel locationLabel = new JLabel("\tLocation: " + viewing.getLocation());
+            JLabel sensationLabel = new JLabel("\tSensation: " + viewing.getSensation());
+            JLabel severityLabel = new JLabel("\tSeverity: " + viewing.getSeverity());
+            JLabel durationLabel = new JLabel("\tDuration: " + viewing.getDuration());
+            JLabel scoreLabel = new JLabel("\tScore: " + viewing.getScore());
 
-                panel.add(label);
-                panel.add(indexLabel);
-                panel.add(dateLabel);
-                panel.add(locationLabel);
-                panel.add(sensationLabel);
-                panel.add(severityLabel);
-                panel.add(durationLabel);
-                panel.add(scoreLabel);
-
-
-            }
+            panel.add(label);
+            panel.add(indexLabel);
+            panel.add(dateLabel);
+            panel.add(locationLabel);
+            panel.add(sensationLabel);
+            panel.add(severityLabel);
+            panel.add(durationLabel);
+            panel.add(scoreLabel);
         }
 
+        // add remedies
         JLabel remTitle = new JLabel("~~~~~SHOWING REMEDY LOG~~~~~~");
-        JLabel rems = new JLabel();
-        // TODO: show remedies
-//
-//        if (remLog == null) {
-//            ret += "\n\tNo remedy logs";
-//        } else {
-//            for (int i = 0; i < remLog.getLog().size(); i++) {
-//                Entry viewing = remLog.getLog().get(i);
-//                int oneBasedIndex = i + 1;
-//                ret = ret + "--ENTRY " + oneBasedIndex + "--";
-//                ret = ret + "\tDate: " + viewing.getDate();
-//                ret = ret + "\tLocation: " + viewing.getLocation();
-//                ret = ret + "\tRemedy: " + viewing.getRemedy();
-//
-//            }
-//        }
-//
-//        return ret;
+        panel.add(remTitle);
 
-//        panel.add(symTitle);
-//        panel.add(syms);
-//        panel.add(remTitle);
-//        panel.add(rems);
-//
-//        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-//
+        for (int i = 0; i < remLog.getLog().size(); i++) {
+            Entry viewing = remLog.getLog().get(i);
+            int oneBasedIndex = i + 1;
+
+            JLabel label = new JLabel("");
+            JLabel indexLabel = new JLabel("--ENTRY " + oneBasedIndex + "--");
+            JLabel dateLabel = new JLabel("\tDate: " + viewing.getDate());
+            JLabel locationLabel = new JLabel("\tLocation: " + viewing.getLocation());
+            JLabel remedyLabel = new JLabel("\tRemedy: " + viewing.getRemedy());
+
+            panel.add(label);
+            panel.add(indexLabel);
+            panel.add(dateLabel);
+            panel.add(locationLabel);
+            panel.add(remedyLabel);
+        }
         return panel;
     }
 
@@ -487,6 +622,15 @@ public class SymmerApp {
 
         for (String s : SENSATIONS) {
             ret.add(s);
+        }
+        return ret;
+    }
+
+    // EFFECTS: returns a vector of remedies
+    private Vector<String> getRemedies() {
+        Vector<String> ret = new Vector<>();
+        for (String r : REMEDIES) {
+            ret.add(r);
         }
         return ret;
     }
