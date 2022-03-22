@@ -191,25 +191,37 @@ public class SymmerApp {
         });
         panel.add(btnAddLogs, c);
 
-        // add Save button
+        // add the Delete Logs button
         c.gridx = 0;
         c.gridy = 3;
+        JButton btnDelLogs = new JButton("Delete Logs");
+        btnDelLogs.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Deleting logs");
+                deleteLogsGUI();
+            }
+        });
+        panel.add(btnDelLogs, c);
+
+        // add Save button
+        c.gridx = 0;
+        c.gridy = 4;
         JButton btnSave = new JButton("Save");
 
         btnSave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                saveLogs();
+                saveLogsGUI();
             }
         });
         panel.add(btnSave, c);
 
         // add Load from File button
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 5;
         JButton btnLoad = new JButton("Load From File");
         btnLoad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                loadLogs();
+                loadLogsGUI();
             }
         });
         panel.add(btnLoad, c);
@@ -468,7 +480,7 @@ public class SymmerApp {
 
                 try {
                     Integer dur = Integer.parseInt(text);
-                    if (dur < 0) {
+                    if (dur <= 0) {
                         JOptionPane.showMessageDialog(frame, "Whoops! Positive numbers only!");
                     } else {
                         newDuration = dur;
@@ -524,8 +536,184 @@ public class SymmerApp {
     }
 
     // MODIFIES: this
+    // EFFECTS: GUI to delete an entry from this history log
+    private void deleteLogsGUI() {
+        JFrame frame = new JFrame();
+        frame.setPreferredSize(new Dimension(400, 400));
+        frame.setLocationRelativeTo(null);
+
+        Object[] options = {"Symptom Log", "Remedy Log"};
+
+        int value = JOptionPane.showOptionDialog(frame,
+                "Which log would you like to delete from?",
+                "Choose an option",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[1]);
+
+        if (value == JOptionPane.YES_OPTION) {
+            deleteSymptomLogGUI();
+            System.out.println("Deleting a symptom log");
+        } else if (value == JOptionPane.NO_OPTION) {
+            deleteRemedyLogGUI();
+            System.out.println("Deleting a remedy log");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: deletes a specified entry from this symptom log
+    @SuppressWarnings("methodlength")
+    private void deleteSymptomLogGUI() {
+        final int[] deletingIndex = new int[1];
+
+        JFrame frame = new JFrame();
+        frame.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.gridx = 0;
+        c.gridy = 0;
+        JLabel label = new JLabel("Choose the number of the log you would like to delete.");
+        frame.add(label, c);
+
+        c.gridx = 0;
+        c.gridy = 1;
+        JPanel viewingPanel = viewAllLogsToString();
+        viewingPanel.setLayout(new BoxLayout(viewingPanel, BoxLayout.Y_AXIS));
+
+        // add panel to scroll pane
+        JScrollPane scrollPane = new JScrollPane(viewingPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        frame.add(scrollPane, c);
+
+        c.gridx = 0;
+        c.gridy = 2;
+        JTextField txt = new JTextField();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        txt.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                String text = txt.getText();
+
+                try {
+                    Integer userIndex = Integer.parseInt(text);
+                    if (userIndex <= 0) {
+                        JOptionPane.showMessageDialog(frame, "Whoops! Positive numbers only!");
+                    } else if (userIndex > symLog.getLog().size()) {
+                        JOptionPane.showMessageDialog(frame, "Whoops! Valid log numbers only!");
+                    } else {
+                        deletingIndex[0] = userIndex - 1;
+                        System.out.println("Deleting index " +  deletingIndex[0] + " from list. User inputted "
+                                + userIndex);
+                        JOptionPane.showMessageDialog(frame, "You've chosen to delete entry " + userIndex
+                                + ". Click 'OK' to continue, then click 'Delete' to delete the entry.");
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(frame, "Whoops! Valid numbers only!");
+                }
+            }
+        });
+        frame.getContentPane().add(txt, c);
+
+        c.gridx = 0;
+        c.gridy = 3;
+        JButton delBtn = new JButton("Delete");
+        delBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                symLog.delete(deletingIndex[0]);
+                JOptionPane.showMessageDialog(frame, "Entry deleted.");
+            }
+        });
+        frame.getContentPane().add(delBtn, c);
+
+        frame.pack();
+        frame.setVisible(true);
+
+        frame.setPreferredSize(new Dimension(400, 800));
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: deletes a specified entry from this remedy log
+    @SuppressWarnings("methodlength")
+    private void deleteRemedyLogGUI() {
+        final int[] deletingIndex = new int[1];
+
+        JFrame frame = new JFrame();
+        frame.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.gridx = 0;
+        c.gridy = 0;
+        JLabel label = new JLabel("Choose the number of the log you would like to delete.");
+        frame.add(label, c);
+
+        c.gridx = 0;
+        c.gridy = 1;
+        JPanel viewingPanel = viewAllLogsToString();
+        viewingPanel.setLayout(new BoxLayout(viewingPanel, BoxLayout.Y_AXIS));
+
+        // add panel to scroll pane
+        JScrollPane scrollPane = new JScrollPane(viewingPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        frame.add(scrollPane, c);
+
+        c.gridx = 0;
+        c.gridy = 2;
+        JTextField txt = new JTextField();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        txt.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                String text = txt.getText();
+
+                try {
+                    Integer userIndex = Integer.parseInt(text);
+                    if (userIndex <= 0) {
+                        JOptionPane.showMessageDialog(frame, "Whoops! Positive numbers only!");
+                    } else if (userIndex > remLog.getLog().size()) {
+                        JOptionPane.showMessageDialog(frame, "Whoops! Valid log numbers only!");
+                    } else {
+                        deletingIndex[0] = userIndex - 1;
+                        System.out.println("Deleting index " +  deletingIndex[0] + " from list. User inputted "
+                                + userIndex);
+                        JOptionPane.showMessageDialog(frame, "You've chosen to delete entry " + userIndex
+                                + ". Click 'OK' to continue, then click 'Delete' to delete the entry.");
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(frame, "Whoops! Valid numbers only!");
+                }
+            }
+        });
+        frame.getContentPane().add(txt, c);
+
+        c.gridx = 0;
+        c.gridy = 3;
+        JButton delBtn = new JButton("Delete");
+        delBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                remLog.delete(deletingIndex[0]);
+                JOptionPane.showMessageDialog(frame, "Entry deleted.");
+            }
+        });
+        frame.getContentPane().add(delBtn, c);
+
+        frame.pack();
+        frame.setVisible(true);
+
+        frame.setPreferredSize(new Dimension(400, 800));
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+    }
+
+    // MODIFIES: this
     // EFFECTS: saves this log on file
-    private void saveLogs() {
+    private void saveLogsGUI() {
         JFrame frame = new JFrame("Saving Logs");
 
         lh = new LogHistory("Your Log History", symLog, remLog);
@@ -541,7 +729,7 @@ public class SymmerApp {
 
     // MODIFIES: this
     // EFFECTS: loads this log from the one on file
-    private void loadLogs() {
+    private void loadLogsGUI() {
         JFrame frame = new JFrame("Saving Logs");
 
         try {
