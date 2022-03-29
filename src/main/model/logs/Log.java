@@ -1,6 +1,8 @@
 package model.logs;
 
 import model.entries.Entry;
+import model.logging.Event;
+import model.logging.EventLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -36,7 +38,7 @@ public abstract class Log implements Writable {
     // EFFECTS: removes the log entry at the given index from this log.
     //          all log entries after index are shifted down one index
     public void delete(int index) {
-        log.remove(index);
+        Entry removed = log.remove(index);
     }
 
     public List<Entry> getLog() {
@@ -57,5 +59,9 @@ public abstract class Log implements Writable {
 
         return jsonArray;
     }
+
+
+
+
 
 }

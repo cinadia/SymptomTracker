@@ -2,6 +2,8 @@ package model;
 
 import model.entries.Remedy;
 import model.entries.Symptom;
+import model.logging.Event;
+import model.logging.EventLog;
 import model.logs.Log;
 import model.logs.RemedyLog;
 import model.logs.SymptomLog;
@@ -37,12 +39,28 @@ public class LogHistory implements Writable {
     // EFFECTS: adds new entry to the symptom log in this log history
     public void addSymptom(Symptom sym) {
         symLog.add(sym);
+        EventLog.getInstance().logEvent(new Event("A symptom entry has been added. "));
     }
 
     // MODIFIES: this
     // EFFECTS: adds new entry to the remedy log in this log history
     public void addRemedy(Remedy rem) {
         remLog.add(rem);
+        EventLog.getInstance().logEvent(new Event("A remedy entry has been added. "));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: deletes symptom entry at index from this log history
+    public void deleteSymptom(int index) {
+        symLog.delete(index);
+        EventLog.getInstance().logEvent(new Event("Symptom entry " + ++index + " has been deleted. "));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: deletes symptom entry at index from this log history
+    public void deleteRemedy(int index) {
+        remLog.delete(index);
+        EventLog.getInstance().logEvent(new Event("Remedy entry " + ++index + " has been deleted. "));
     }
 
     // EFFECTS: returns the symptom log in this log history
@@ -69,6 +87,15 @@ public class LogHistory implements Writable {
     protected JSONArray logsToJson(Log log) {
         JSONArray jsonArray = log.entriesToJson();
         return jsonArray;
+    }
+
+    // EFFECTS: returns the EventLog history
+    public String getEventLog() {
+        String ret = "";
+        for (Event next : EventLog.getInstance()) {
+            ret = ret + next.toString();
+        }
+        return ret;
     }
 
     // EFFECTS: returns number of entries in the symptom log of this log history

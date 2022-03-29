@@ -9,12 +9,6 @@ import org.json.JSONObject;
  */
 public class RemedyLog extends Log {
 
-    // EFFECTS: Creates an empty collection of Remedies (a log)
-//    public RemedyLog() {
-//        log  = new ArrayList<Entry>();
-//
-//    }
-
     // REQUIRES: index >= 0
     // MODIFIES: this
     // EFFECTS: replaces the Symptom at the given index in this log with rem

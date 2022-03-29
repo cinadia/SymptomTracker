@@ -4,6 +4,8 @@ import model.LogHistory;
 import model.entries.Entry;
 import model.entries.Remedy;
 import model.entries.Symptom;
+import model.logging.Event;
+import model.logging.EventLog;
 import model.logs.RemedyLog;
 import model.logs.SymptomLog;
 import persistence.JsonReader;
@@ -33,9 +35,7 @@ import com.toedter.calendar.JDateChooser;
 public class SymmerApp {
     private static final String JSON_STORE = "./data/loghistory.json";
 
-    private SymptomLog symLog;
-    private RemedyLog remLog;
-    private Scanner input;
+    //private Scanner input;
 
     private LogHistory lh;
     private JsonWriter jsonWriter;
@@ -130,8 +130,7 @@ public class SymmerApp {
 
     // EFFECTS: runs the Symmer application
     public SymmerApp() {
-        symLog = new SymptomLog();
-        remLog = new RemedyLog();
+        lh = new LogHistory("My Log History");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         homePage();
@@ -149,6 +148,13 @@ public class SymmerApp {
         JFrame frame = new JFrame("Home");
         frame.setSize(500, 500);
         frame.setLocationRelativeTo(null);
+
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                printLog();
+            }
+        });
 
         // initialize panel
         JPanel panel = new JPanel();
@@ -375,7 +381,7 @@ public class SymmerApp {
         frame.getContentPane().add(saveBtn, c);
         saveBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                remLog.add(new Remedy(newLocation, newRemedy, newDate));
+                lh.addRemedy(new Remedy(newLocation, newRemedy, newDate));
                 JOptionPane.showMessageDialog(frame, "Saving the following new remedy:"
                         + "\nDate: " + newDate
                         + "\nLocation: " + newLocation
@@ -521,7 +527,7 @@ public class SymmerApp {
         frame.getContentPane().add(saveBtn, c);
         saveBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                symLog.add(new Symptom(newLocation, newSensation, newSeverity, newDuration, newDate));
+                lh.addSymptom(new Symptom(newLocation, newSensation, newSeverity, newDuration, newDate));
                 JOptionPane.showMessageDialog(frame, "Saving the following new symptom:"
                         + "\nDate: " + newDate
                         + "\nLocation: " + newLocation
@@ -579,7 +585,7 @@ public class SymmerApp {
 
         c.gridx = 0;
         c.gridy = 0;
-        JLabel label = new JLabel("Choose the number of the log you would like to delete.");
+        JLabel label = new JLabel("Choose the number of the SYMPTOM log you would like to delete.");
         frame.add(label, c);
 
         c.gridx = 0;
@@ -605,7 +611,7 @@ public class SymmerApp {
                     Integer userIndex = Integer.parseInt(text);
                     if (userIndex <= 0) {
                         JOptionPane.showMessageDialog(frame, "Whoops! Positive numbers only!");
-                    } else if (userIndex > symLog.getLog().size()) {
+                    } else if (userIndex > lh.getSymptomLogs().getLog().size()) {
                         JOptionPane.showMessageDialog(frame, "Whoops! Valid log numbers only!");
                     } else {
                         deletingIndex[0] = userIndex - 1;
@@ -626,7 +632,7 @@ public class SymmerApp {
         JButton delBtn = new JButton("Delete");
         delBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                symLog.delete(deletingIndex[0]);
+                lh.deleteSymptom(deletingIndex[0]);
                 JOptionPane.showMessageDialog(frame, "Entry deleted.");
             }
         });
@@ -654,7 +660,7 @@ public class SymmerApp {
 
         c.gridx = 0;
         c.gridy = 0;
-        JLabel label = new JLabel("Choose the number of the log you would like to delete.");
+        JLabel label = new JLabel("Choose the number of the REMEDY log you would like to delete.");
         frame.add(label, c);
 
         c.gridx = 0;
@@ -680,7 +686,7 @@ public class SymmerApp {
                     Integer userIndex = Integer.parseInt(text);
                     if (userIndex <= 0) {
                         JOptionPane.showMessageDialog(frame, "Whoops! Positive numbers only!");
-                    } else if (userIndex > remLog.getLog().size()) {
+                    } else if (userIndex > lh.getRemedyLogs().getLog().size()) {
                         JOptionPane.showMessageDialog(frame, "Whoops! Valid log numbers only!");
                     } else {
                         deletingIndex[0] = userIndex - 1;
@@ -701,7 +707,7 @@ public class SymmerApp {
         JButton delBtn = new JButton("Delete");
         delBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                remLog.delete(deletingIndex[0]);
+                lh.deleteRemedy(deletingIndex[0]);
                 JOptionPane.showMessageDialog(frame, "Entry deleted.");
             }
         });
@@ -721,7 +727,6 @@ public class SymmerApp {
     private void saveLogsGUI() {
         JFrame frame = new JFrame("Saving Logs");
 
-        lh = new LogHistory("Your Log History", symLog, remLog);
         try {
             jsonWriter.open();
             jsonWriter.write(lh);
@@ -739,8 +744,6 @@ public class SymmerApp {
 
         try {
             lh = jsonReader.read();
-            symLog = (SymptomLog) lh.getSymptomLogs();
-            remLog = (RemedyLog) lh.getRemedyLogs();
             JOptionPane.showMessageDialog(frame, "Loaded " + lh.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(frame, "Unable to write to file: " + JSON_STORE);
@@ -755,8 +758,8 @@ public class SymmerApp {
         // add symptoms
         JLabel symTitle = new JLabel("~~~~~SHOWING SYMPTOM LOG~~~~~~");
         panel.add(symTitle);
-        for (int i = 0; i < symLog.getLog().size(); i++) {
-            Entry viewing = symLog.getLog().get(i);
+        for (int i = 0; i < lh.getSymptomLogs().getLog().size(); i++) {
+            Entry viewing = lh.getSymptomLogs().getLog().get(i);
             int oneBasedIndex = i + 1;
 
             JLabel label = new JLabel("");
@@ -782,8 +785,8 @@ public class SymmerApp {
         JLabel remTitle = new JLabel("~~~~~SHOWING REMEDY LOG~~~~~~");
         panel.add(remTitle);
 
-        for (int i = 0; i < remLog.getLog().size(); i++) {
-            Entry viewing = remLog.getLog().get(i);
+        for (int i = 0; i < lh.getRemedyLogs().getLog().size(); i++) {
+            Entry viewing = lh.getRemedyLogs().getLog().get(i);
             int oneBasedIndex = i + 1;
 
             JLabel label = new JLabel("");
@@ -839,10 +842,12 @@ public class SymmerApp {
         return ret;
     }
 
+    public void printLog() {
+        System.out.println(lh.getEventLog());
+    }
 
 
-
-
+    /*
     // -----------------------------------------------------------------
 
     // The following methods are not included in GUI phase 3
@@ -1353,6 +1358,6 @@ public class SymmerApp {
         viewAllLogs(false);
     }
 
-
+    */
 
 }

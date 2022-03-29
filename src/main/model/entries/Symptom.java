@@ -5,7 +5,7 @@ import model.entries.Entry;
 import org.json.JSONObject;
 
 /**
- * A Symptom
+ * Represents a Symptom
  */
 public class Symptom extends Entry {
 

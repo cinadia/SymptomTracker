@@ -4,7 +4,7 @@ import model.entries.Entry;
 import org.json.JSONObject;
 
 /**
- * A Remedy
+ * Represents a Remedy
  */
 public class Remedy extends Entry {
 
