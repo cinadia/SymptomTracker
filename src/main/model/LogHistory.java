@@ -90,12 +90,11 @@ public class LogHistory implements Writable {
     }
 
     // EFFECTS: returns the EventLog history
-    public String getEventLog() {
-        String ret = "";
+    public void getEventLog() {
         for (Event next : EventLog.getInstance()) {
-            ret = ret + next.toString();
+            System.out.println(next.toString());
         }
-        return ret;
+       // return ret;
     }
 
     // EFFECTS: returns number of entries in the symptom log of this log history

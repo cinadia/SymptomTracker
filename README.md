@@ -50,3 +50,21 @@ Saving Logs:
 Loading Logs:
 - As a user, I want to have the option to reload previously saved symptom logs
 - As a user, I want to have the option to reload previously saved remedy logs
+
+## Phase 4: Task 2
+Mon Mar 28 17:07:03 PDT 2022
+A symptom entry has been added.
+Mon Mar 28 17:07:04 PDT 2022
+A symptom entry has been added.
+Mon Mar 28 17:07:10 PDT 2022
+Symptom entry 1 has been deleted.
+Mon Mar 28 17:07:17 PDT 2022
+A remedy entry has been added.
+Mon Mar 28 17:07:18 PDT 2022
+A remedy entry has been added.
+Mon Mar 28 17:07:19 PDT 2022
+A remedy entry has been added.
+Mon Mar 28 17:07:27 PDT 2022
+Remedy entry 3 has been deleted.
+Mon Mar 28 17:07:37 PDT 2022
+A symptom entry has been added. 

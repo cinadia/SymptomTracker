@@ -843,7 +843,7 @@ public class SymmerApp {
     }
 
     public void printLog() {
-        System.out.println(lh.getEventLog());
+        lh.getEventLog();
     }
 
 
