@@ -67,4 +67,24 @@ A remedy entry has been added.
 Mon Mar 28 17:07:27 PDT 2022
 Remedy entry 3 has been deleted.
 Mon Mar 28 17:07:37 PDT 2022
-A symptom entry has been added. 
+A symptom entry has been added.
+
+## Phase 4: Task 3
+- add exceptions for human error
+  - have an abstract InvalidInputException with subclasses for invalid:
+    - locations
+    - sensations
+    - severities
+    - durations
+    - dates
+    - remedies
+- separate gui code from ui code
+  - have separate classes for each different task:
+    - add logs
+    - delete logs
+    - view logs
+    - home panel
+- reduce code duplication in gui by extracting helper methods
+    - can extract helper from addSymptomLogGUI and addRemedyLogGUI
+    - can extract helper from deleteSymptomLogGUI and deleteRemedyLogGUI
+- change LOCATIONS, SENSATIONS, SEVERITY, and REMEDIES final lists to separate Enums

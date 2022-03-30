@@ -4,10 +4,6 @@ import model.LogHistory;
 import model.entries.Entry;
 import model.entries.Remedy;
 import model.entries.Symptom;
-import model.logging.Event;
-import model.logging.EventLog;
-import model.logs.RemedyLog;
-import model.logs.SymptomLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
